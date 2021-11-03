@@ -69,13 +69,27 @@ public class Potions extends MarketItems{
         this.equip = equip;
     }
 
-    @Override
+//    @Override
     public String getType() {
         return "Potions";
     }
 
-    @Override
-    public void displayList() {
+//    @Override
+//    public void displayList() {
+//        String[] words = allLines.get(0).split("/");
+//        String line = String.join("   ", words);
+//        System.out.println("Id   " + line);
+//        for(Potions potion: potions){
+//            System.out.format("%d %20s %d %d %d %s %s", potion.getId(), potion.getName(), potion.getCost(), potion.getReq_level(), potion.getAtt_increase(), potion.getAtt_affected());
+//            System.out.println();
+//        }
+////        for (int i=1;i<allLines.size();i++) {
+////            System.out.print(i + "   ");
+////            System.out.println(allLines.get(i));
+////        }
+//    }
+
+    public static List<String> getList() {
         List<String> list = new ArrayList<>();
         try {
             allLines = Files.readAllLines(Paths.get("/home/sahana/Documents/611/Legends/src/Legends_Monsters_and_Heroes/Potions.txt"));
@@ -83,17 +97,6 @@ public class Potions extends MarketItems{
         } catch (IOException e) {
             e.printStackTrace();
         }
-        String[] words = allLines.get(0).split("/");
-        String line = String.join("   ", words);
-        System.out.println("Id   " + line);
-        for (int i=1;i<allLines.size();i++) {
-            System.out.print(i + "   ");
-            System.out.println(allLines.get(i));
-        }
-    }
-
-    public static List<String> getList() {
-        List<String> list = new ArrayList<>();
         for (int i=1;i<allLines.size();i++) {
             String str = i + "   " + allLines.get(i);
             list.add(str);

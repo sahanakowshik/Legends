@@ -60,31 +60,32 @@ public class Armory extends MarketItems{
         this.damage_reduction = damage_reduction;
     }
 
-
-    @Override
     public String getType() {
         return "Armory";
     }
 
-    @Override
-    public void displayList() {
-        List<String> list = new ArrayList<>();
+//    @Override
+//    public void displayList() {
+//        String[] words = allLines.get(0).split("/");
+//        String line = String.join("   ", words);
+//        System.out.println("Id   " + line);
+//        for(Armory armory: armories){
+//            System.out.format("%d  %20s %d  %d %d %s", armory.getId(), armory.getName(), armory.getCost(), armory.getReq_level(), armory.getDamage_reduction(), armory.getEquip());
+//            System.out.println();
+//        }
+////        for (int i=1;i<allLines.size();i++) {
+////            System.out.print(i + "   ");
+////            System.out.println(allLines.get(i));
+////        }
+//    }
+
+    public static List<String> getList() {
         try {
             allLines = Files.readAllLines(Paths.get("/home/sahana/Documents/611/Legends/src/Legends_Monsters_and_Heroes/Armory.txt"));
 //            lineCount = allLines.size();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        String[] words = allLines.get(0).split("/");
-        String line = String.join("   ", words);
-        System.out.println("Id   " + line);
-        for (int i=1;i<allLines.size();i++) {
-            System.out.print(i + "   ");
-            System.out.println(allLines.get(i));
-        }
-    }
-
-    public static List<String> getList() {
         List<String> list = new ArrayList<>();
         for (int i=1;i<allLines.size();i++) {
             String str = i + "   " + allLines.get(i);

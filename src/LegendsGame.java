@@ -58,7 +58,6 @@ public class LegendsGame extends BoardGame{
         player.setName(GameFunctions.safeScanString(new Scanner(System.in), "Please enter your name:\n"));
         player.setnHero(GameFunctions.safeScanIntWithLimit(new Scanner(System.in), "Please enter the number of heroes (1-3):\n", 1, 3));
         player.setSymbol(GameFunctions.safeScanString(new Scanner(System.in), "Please enter your symbol:\n"));
-        System.out.println(player.getName());
         player.setHeroes();
         Board board = new LegendsBoard();
         board.createBoard();
@@ -68,12 +67,15 @@ public class LegendsGame extends BoardGame{
         Display.displayHeroes(player.getHeroes());
         player.createMonsters();
         player.getMonsters(player.getnHero(), player.getHeroes().get(0).getLevel());
-        for(Monsters mon: player.getCurMonsters()){
-            System.out.println(mon.getLevel());
-        }
+//        for(Monsters mon: player.getCurMonsters()){
+//            System.out.println(mon.getLevel());
+//        }
 //        System.out.println(player.getCurMonsters());
         Display.displayBoard(board);
         Display.displayLegend();
+
+        Market market = new Market();
+        market.createMarket();
     }
 
     @Override
