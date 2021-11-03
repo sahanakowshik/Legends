@@ -4,12 +4,12 @@ public class LegendsPlayer extends Player{
     private int nHero;
     private String symbol;
     private List<Heroes> heroes;
+    private List<Monsters> curMonsters;
 
     public List<Monsters> getCurMonsters() {
         return curMonsters;
     }
 
-    private List<Monsters> curMonsters;
     public Map<Integer,ArrayList<Monsters>> monsters=new HashMap<Integer,ArrayList<Monsters>>();
 
     public List<Heroes> getHeroes() {

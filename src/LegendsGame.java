@@ -58,8 +58,6 @@ public class LegendsGame extends BoardGame{
         player.setName(GameFunctions.safeScanString(new Scanner(System.in), "Please enter your name:\n"));
         player.setnHero(GameFunctions.safeScanIntWithLimit(new Scanner(System.in), "Please enter the number of heroes (1-3):\n", 1, 3));
         player.setSymbol(GameFunctions.safeScanString(new Scanner(System.in), "Please enter your symbol:\n"));
-//        player.setLevel(1);
-//        player.setHp(1000);
         System.out.println(player.getName());
         player.setHeroes();
         Board board = new LegendsBoard();
