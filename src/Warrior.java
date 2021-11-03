@@ -4,17 +4,16 @@ import java.nio.file.Paths;
 import java.util.List;
 
 public class Warrior extends Heroes{
+    private List<String> allLines;
     private int n;
 
+    public List<String> getAllLines() {
+        return allLines;
+    }
+
     public Warrior(){
-        int lineCount = 0;
-        try {
-            allLines = Files.readAllLines(Paths.get("/home/sahana/Documents/611/Legends/src/Legends_Monsters_and_Heroes/Warriors.txt"));
-            lineCount = allLines.size();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        this.n = lineCount;
+        allLines = Parser.parser("Warriors.txt");
+        this.n = allLines.size();
     }
 
     public int getN() {

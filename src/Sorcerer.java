@@ -4,17 +4,16 @@ import java.nio.file.Paths;
 import java.util.List;
 
 public class Sorcerer extends Heroes{
+    private List<String> allLines;
     private int n;
 
+    public List<String> getAllLines() {
+        return allLines;
+    }
+
     public Sorcerer(){
-        int lineCount = 0;
-        try {
-            allLines = Files.readAllLines(Paths.get("/home/sahana/Documents/611/Legends/src/Legends_Monsters_and_Heroes/Sorcerers.txt"));
-            lineCount = allLines.size();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        this.n = lineCount;
+        allLines = Parser.parser("Sorcerer.txt");
+        this.n = allLines.size();
     }
 
     public int getN() {

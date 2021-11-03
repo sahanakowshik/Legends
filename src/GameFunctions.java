@@ -7,18 +7,14 @@ public class GameFunctions {
      * Get the details of the player and set the desired piece
      * Conditions:
      * Player name should be unique
-     * @param game
-     * @param scanner
-     * @param playerIndex
+//     * @param game
+//     * @param scanner
+//     * @param playerIndex
      */
 
     static boolean getRandomBoolean(float probability) {
         double randomValue = Math.random();  //0.0 to 99.9
         return randomValue <= probability;
-    }
-    public static void getPlayerDetails(Game game, Scanner scanner, int playerIndex, List<String> players) {
-        game.getPlayers()[playerIndex].setName(getUniqueInput(scanner,players,String.format("Enter name of player %d: ",playerIndex+1)));
-        players.add(game.getPlayers()[playerIndex].getName());
     }
 
     public static String getUniqueInput(Scanner scanner, List<String> data,String message) {

@@ -10,7 +10,6 @@ public abstract class Heroes extends LegendsPlayer{
     private int starting_exp;
     private int level;
     private int hp;
-    public List<String> allLines;
 
     public int getLevel() {
         return level;
@@ -95,4 +94,6 @@ public abstract class Heroes extends LegendsPlayer{
     public abstract String getType();
 
     public abstract void displayList();
+
+    public abstract List<String> getAllLines();
 }

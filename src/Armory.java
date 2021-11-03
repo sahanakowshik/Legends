@@ -4,7 +4,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Armory extends MarketItems{
+public class Armory extends MarketItems implements isUsable, isBuyableSellable{
     public static List<String> allLines;
     private int id;
     private String Name;
@@ -12,6 +12,10 @@ public class Armory extends MarketItems{
     private int req_level;
     private int damage_reduction;
     private String equip;
+
+    public static List<String> getAllLines() {
+        return allLines;
+    }
 
     public String getEquip() {
         return equip;
@@ -67,23 +71,12 @@ public class Armory extends MarketItems{
 
 //    @Override
     public static void displayArmory(){
-        String[] words = allLines.get(0).split("/");
-        String line = String.join("   ", words);
-        System.out.println("Id   " + line + "   Equip");
-        for(Armory armory: armories){
-            System.out.format("%d   %15s   %4d   %2d   %4d   %3s", armory.getId(), armory.getName(), armory.getCost(), armory.getReq_level(), armory.getDamage_reduction(), armory.getEquip());
-            System.out.println();
-        }
+        Display.displayArmory(armories);
     }
 
 //    @Override
     public static List<String> getList() {
-        try {
-            allLines = Files.readAllLines(Paths.get("/home/sahana/Documents/611/Legends/src/Legends_Monsters_and_Heroes/Armory.txt"));
-//            lineCount = allLines.size();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        allLines = Parser.parser("Armory.txt");
         List<String> list = new ArrayList<>();
         for (int i=1;i<allLines.size();i++) {
             String str = i + "   " + allLines.get(i);

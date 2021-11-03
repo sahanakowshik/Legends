@@ -5,7 +5,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Spirit extends Monsters{
+    private static List<String> allLines;
     private int n;
+
+    public static List<String> getAllLines() {
+        return allLines;
+    }
 
 //    public Spirit(){
 //        int lineCount = 0;
@@ -20,12 +25,7 @@ public class Spirit extends Monsters{
 
     public static List<String> getList() {
         List<String> list = new ArrayList<>();
-        try {
-            allLines = Files.readAllLines(Paths.get("/home/sahana/Documents/611/Legends/src/Legends_Monsters_and_Heroes/Spirits.txt"));
-//            lineCount = allLines.size();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        allLines = Parser.parser("Spirits.txt");
         for (int i=1;i<allLines.size();i++) {
             String str = i + "   " + allLines.get(i);
             list.add(str);

@@ -1,6 +1,6 @@
 import java.util.List;
 
-public abstract class Spell extends MarketItems{
+public abstract class Spell extends MarketItems implements isCastable, isBuyableSellable{
     private int id;
     private String Name;
     private int cost;
@@ -8,6 +8,7 @@ public abstract class Spell extends MarketItems{
     private int damage;
     private int mana_cost;
     private String Equip;
+    public static List<String> allLines;
 
 //    public static List<String> getList();
 

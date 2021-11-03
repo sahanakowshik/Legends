@@ -1,7 +1,4 @@
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Scanner;
+import java.util.*;
 
 public class LegendsGame extends BoardGame{
     @Override
@@ -13,35 +10,6 @@ public class LegendsGame extends BoardGame{
     public void summary() {
 
     }
-
-//    public void addHeroes(LegendsPlayer player){
-//        Scanner sc = new Scanner(System.in);
-//        for(int i=0;i<player.getnHero();i++){
-//            int choice = GameFunctions.safeScanIntWithLimit(new Scanner(System.in), "Please enter the hero class:\n1. Warrior\n2. Sorceror\n3. Paladin\n", 1, 3);
-//            if(choice == 1) {
-//                heroes.add(new Warrior());
-//            }
-//            else if(choice == 2) {
-//                heroes.add(new Sorcerer());
-//            }
-//            else {
-//                heroes.add(new Paladin());
-//            }
-//            System.out.println(heroes.get(i).getType() + " List:\n");
-//            heroes.get(i).displayList();
-//            int id = GameFunctions.safeScanIntWithLimit(new Scanner(System.in), "Please enter the id of the hero\n", 1, heroes.get(i).getN());
-//            String[] str = heroes.get(i).allLines.get(id).split("\\s+");
-//            heroes.get(i).setPlayerId(id);
-//            heroes.get(i).setName(str[0]);
-//            heroes.get(i).setMana(Integer.parseInt(str[1]));
-//            heroes.get(i).setStrength(Integer.parseInt(str[2]));
-//            heroes.get(i).setAgility(Integer.parseInt(str[3]));
-//            heroes.get(i).setDexterity(Integer.parseInt(str[4]));
-//            heroes.get(i).setStarting_money(Integer.parseInt(str[5]));
-//            heroes.get(i).setStarting_exp(Integer.parseInt(str[6]));
-//        }
-//
-//    }
 
     public void addPlayer(LegendsPlayer player){
         do{
@@ -71,11 +39,35 @@ public class LegendsGame extends BoardGame{
 //            System.out.println(mon.getLevel());
 //        }
 //        System.out.println(player.getCurMonsters());
-        Display.displayBoard(board);
-        Display.displayLegend();
 
         Market market = new Market();
         market.createMarket();
+
+        while(true){
+            Display.displayBoard(board);
+            Display.displayLegend();
+            String[] data = {"w", "a", "s", "d", "i", "e", "q"};
+            String choice;
+            do {
+                choice = GameFunctions.safeScanString(new Scanner(System.in), "It is your turn to move:\nMove(W/A/S/D)\nCheck player Info(I)\nCheck weapons Inventory (E)\nShow map (M)\nQuit (Q)");
+                //              choice = choice.toLowerCase();
+                if(!Arrays.asList(data).contains(choice)) {
+                    System.out.println("Please enter a valid choice....");
+                }else {
+                    break;
+                }
+            }while (true);
+            switch (choice){
+//                case "w": Board.move("Up");
+//                        break;
+//                case "s": Board.move("Down");
+//                        break;
+//                case "a": Board.move("Left");
+//                        break;
+//                case "d": Board.move("Right");
+//                        break;
+          }
+        }
     }
 
     @Override

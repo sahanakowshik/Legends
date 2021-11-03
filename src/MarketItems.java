@@ -5,12 +5,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class MarketItems {
-    public static List<Armory> armories;
-    public static List<Weaponry> weapons;
-    public static List<Potions> potions;
-    public static List<Spell> fireSpells;
-    public static List<Spell> iceSpells;
-    public static List<Spell> lightningSpells;
+    protected static List<Armory> armories;
+    protected static List<Weaponry> weapons;
+    protected static List<Potions> potions;
+    protected static List<Spell> fireSpells;
+    protected static List<Spell> iceSpells;
+    protected static List<Spell> lightningSpells;
 
 //    public abstract void displayList();
 

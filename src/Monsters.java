@@ -9,7 +9,7 @@ public abstract class Monsters extends LegendsPlayer{
     private int damage;
     private int defense;
     private int dodge_chance;
-    public static List<String> allLines;
+
 //    public Map<Integer,List<String>> monsters=new HashMap<Integer,List<String>>();
     // Combine monsters level wise and make list
     // add method to get n monsters at random

@@ -4,7 +4,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Potions extends MarketItems{
+public class Potions extends MarketItems implements isBuyableSellable, isDrinkable{
     public static List<String> allLines;
     private int id;
     private String Name;
@@ -13,6 +13,10 @@ public class Potions extends MarketItems{
     private int att_increase;
     private String att_affected;
     private String equip;
+
+    public static List<String> getAllLines() {
+        return allLines;
+    }
 
     public int getId() {
         return id;
@@ -76,19 +80,13 @@ public class Potions extends MarketItems{
     }
 
     public static void displayPotions(){
-        String[] words = allLines.get(0).split("/");
-        String line = String.join("   ", words);
-        System.out.println("Id   " + line + "   Equip");
-        for(Potions potion: potions){
-            System.out.format("%d   %15s   %4d   %2d   %3d   %30s   %3s", potion.getId(), potion.getName(), potion.getCost(), potion.getReq_level(), potion.getAtt_increase(), potion.getAtt_affected(), potion.getEquip());
-            System.out.println();
-        }
+        Display.displayPotions(potions);
     }
 
     public static List<String> getList() {
         List<String> list = new ArrayList<>();
         try {
-            allLines = Files.readAllLines(Paths.get("/home/sahana/Documents/611/Legends/src/Legends_Monsters_and_Heroes/Potions.txt"));
+            allLines = Files.readAllLines(Paths.get("src/Legends_Monsters_and_Heroes/Potions.txt"));
 //            lineCount = allLines.size();
         } catch (IOException e) {
             e.printStackTrace();

@@ -5,12 +5,48 @@ public class LegendsPlayer extends Player{
     private String symbol;
     private List<Heroes> heroes;
     private List<Monsters> curMonsters;
+    private List<Weaponry> weapons;
+    private List<Armory> armories;
+    private List<Potions> potions;
+    private List<Spell> spells;
+    public Map<Integer,ArrayList<Monsters>> monsters=new HashMap<Integer,ArrayList<Monsters>>();
+
+    public List<Weaponry> getWeapons() {
+        return weapons;
+    }
+
+    public void addWeapon(Weaponry weapon) {
+        this.weapons.add(weapon);
+    }
+
+    public List<Armory> getArmories() {
+        return armories;
+    }
+
+    public void addArmory(Armory armory) {
+        this.armories.add(armory);
+    }
+
+    public List<Potions> getPotions() {
+        return potions;
+    }
+
+    public void addPotion(Potions potion) {
+        this.potions.add(potion);
+    }
+
+    public List<Spell> getSpells() {
+        return spells;
+    }
+
+    public void addSpell(Spell spell) {
+        this.spells.add(spell);
+    }
+
 
     public List<Monsters> getCurMonsters() {
         return curMonsters;
     }
-
-    public Map<Integer,ArrayList<Monsters>> monsters=new HashMap<Integer,ArrayList<Monsters>>();
 
     public List<Heroes> getHeroes() {
         return heroes;
@@ -41,7 +77,7 @@ public class LegendsPlayer extends Player{
             System.out.println(heroes.get(i).getType() + " List:\n");
             heroes.get(i).displayList();
             int id = GameFunctions.safeScanIntWithLimit(new Scanner(System.in), "Please enter the id of the hero\n", 1, heroes.get(i).getN());
-            String[] str = heroes.get(i).allLines.get(id).split("\\s+");
+            String[] str = heroes.get(i).getAllLines().get(id).split("\\s+");
             heroes.get(i).setPlayerId(id);
             heroes.get(i).setName(str[0]);
             heroes.get(i).setMana(Integer.parseInt(str[1]));
@@ -119,20 +155,17 @@ public class LegendsPlayer extends Player{
         this.nHero = nHero;
     }
 
-
-//    public int getLevel() {
-//        return level;
-//    }
-//
-//    public void setLevel(int level) {
-//        this.level = level;
-//    }
-//
-//    public int getHp() {
-//        return hp;
-//    }
-//
-//    public void setHp(int hp) {
-//        this.hp = hp;
-//    }
+    public void showInventory(){
+        System.out.println("List of armories:");
+        Display.displayArmory(armories);
+        System.out.println();
+        System.out.println("List of weapons:");
+        Display.displayWeaponry(weapons);
+        System.out.println();
+        System.out.println("List of potions:");
+        Display.displayPotions(potions);
+        System.out.println();
+        System.out.println("List of spells");
+        Display.displaySpells(spells);
+    }
 }

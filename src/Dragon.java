@@ -5,7 +5,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Dragon extends Monsters{
+    private static List<String> allLines;
     private int n;
+
+    public List<String> getAllLines() {
+        return allLines;
+    }
 
 //    public Dragon(){
 //        int lineCount = 0;
@@ -29,12 +34,7 @@ public class Dragon extends Monsters{
 
     public static List<String> getList() {
         List<String> list = new ArrayList<>();
-        try {
-            allLines = Files.readAllLines(Paths.get("/home/sahana/Documents/611/Legends/src/Legends_Monsters_and_Heroes/Dragons.txt"));
-//            lineCount = allLines.size();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        allLines = Parser.parser("Dragons.txt");
         for (int i=1;i<allLines.size();i++) {
             String str = i + "   " + allLines.get(i);
             list.add(str);
