@@ -4,11 +4,13 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MarketItems {
-    public static List<String> allLines;
+public abstract class MarketItems {
     public static List<Armory> armories;
     public static List<Weaponry> weapons;
     public static List<Potions> potions;
+    public static List<Spell> fireSpells;
+    public static List<Spell> iceSpells;
+    public static List<Spell> lightningSpells;
 
 //    public abstract void displayList();
 
@@ -62,57 +64,69 @@ public class MarketItems {
         }
     }
 
+
+
+    public static void createFireSpells(){
+        List<String> list = FireSpell.getList();
+        fireSpells = new ArrayList<>();
+        for(String str: list){
+            String[] words = str.split("\\s+");
+            Spell spell = new FireSpell();
+            spell.setId(Integer.parseInt(words[0]));
+            spell.setName(words[1]);
+            spell.setCost(Integer.parseInt(words[2]));
+            spell.setReq_level(Integer.parseInt(words[3]));
+            spell.setDamage(Integer.parseInt(words[4]));
+            spell.setMana_cost(Integer.parseInt(words[5]));
+            spell.setEquip("No");
+            fireSpells.add(spell);
+        }
+    }
+
+    public static void createIceSpells(){
+        List<String> list = IceSpell.getList();
+        iceSpells = new ArrayList<>();
+        for(String str: list){
+            String[] words = str.split("\\s+");
+            Spell spell = new FireSpell();
+            spell.setId(Integer.parseInt(words[0]));
+            spell.setName(words[1]);
+            spell.setCost(Integer.parseInt(words[2]));
+            spell.setReq_level(Integer.parseInt(words[3]));
+            spell.setDamage(Integer.parseInt(words[4]));
+            spell.setMana_cost(Integer.parseInt(words[5]));
+            spell.setEquip("No");
+            iceSpells.add(spell);
+        }
+    }
+
+    public static void createLightningSpells(){
+        List<String> list = LightningSpell.getList();
+        lightningSpells = new ArrayList<>();
+        for(String str: list){
+            String[] words = str.split("\\s+");
+            Spell spell = new FireSpell();
+            spell.setId(Integer.parseInt(words[0]));
+            spell.setName(words[1]);
+            spell.setCost(Integer.parseInt(words[2]));
+            spell.setReq_level(Integer.parseInt(words[3]));
+            spell.setDamage(Integer.parseInt(words[4]));
+            spell.setMana_cost(Integer.parseInt(words[5]));
+            spell.setEquip("No");
+            lightningSpells.add(spell);
+        }
+    }
+
+    public static void createSpells(){
+        createFireSpells();
+        createIceSpells();
+        createLightningSpells();
+    }
+
     public static void createMarketList(){
         createArmory();
         createWeapons();
         createPotions();
-    }
-
-    public static void displayArmory(){
-        try {
-            allLines = Files.readAllLines(Paths.get("/home/sahana/Documents/611/Legends/src/Legends_Monsters_and_Heroes/Armory.txt"));
-//            lineCount = allLines.size();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        String[] words = allLines.get(0).split("/");
-        String line = String.join("   ", words);
-        System.out.println("Id   " + line + "   Equip");
-        for(Armory armory: armories){
-            System.out.format("%d   %15s   %4d   %2d   %4d   %3s", armory.getId(), armory.getName(), armory.getCost(), armory.getReq_level(), armory.getDamage_reduction(), armory.getEquip());
-            System.out.println();
-        }
-    }
-
-    public static void displayWeaponry(){
-        try {
-            allLines = Files.readAllLines(Paths.get("/home/sahana/Documents/611/Legends/src/Legends_Monsters_and_Heroes/Weaponry.txt"));
-//            lineCount = allLines.size();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        String[] words = allLines.get(0).split("/");
-        String line = String.join("   ", words);
-        System.out.println("Id   " + line + "   Equip");
-        for(Weaponry weapon: weapons){
-            System.out.format("%d   %7s   %4d   %2d   %4d   %2d   %3s", weapon.getId(), weapon.getName(), weapon.getCost(), weapon.getLevel(), weapon.getDamage(), weapon.getReq_hands(), weapon.getEquip());
-            System.out.println();
-        }
-    }
-
-    public static void displayPotions(){
-        try {
-            allLines = Files.readAllLines(Paths.get("/home/sahana/Documents/611/Legends/src/Legends_Monsters_and_Heroes/Potions.txt"));
-//            lineCount = allLines.size();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        String[] words = allLines.get(0).split("/");
-        String line = String.join("   ", words);
-        System.out.println("Id   " + line + "   Equip");
-        for(Potions potion: potions){
-            System.out.format("%d   %15s   %4d   %2d   %3d   %30s   %3s", potion.getId(), potion.getName(), potion.getCost(), potion.getReq_level(), potion.getAtt_increase(), potion.getAtt_affected(), potion.getEquip());
-            System.out.println();
-        }
+        createSpells();
     }
 }

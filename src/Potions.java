@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Potions extends MarketItems{
+    public static List<String> allLines;
     private int id;
     private String Name;
     private int cost;
@@ -74,20 +75,15 @@ public class Potions extends MarketItems{
         return "Potions";
     }
 
-//    @Override
-//    public void displayList() {
-//        String[] words = allLines.get(0).split("/");
-//        String line = String.join("   ", words);
-//        System.out.println("Id   " + line);
-//        for(Potions potion: potions){
-//            System.out.format("%d %20s %d %d %d %s %s", potion.getId(), potion.getName(), potion.getCost(), potion.getReq_level(), potion.getAtt_increase(), potion.getAtt_affected());
-//            System.out.println();
-//        }
-////        for (int i=1;i<allLines.size();i++) {
-////            System.out.print(i + "   ");
-////            System.out.println(allLines.get(i));
-////        }
-//    }
+    public static void displayPotions(){
+        String[] words = allLines.get(0).split("/");
+        String line = String.join("   ", words);
+        System.out.println("Id   " + line + "   Equip");
+        for(Potions potion: potions){
+            System.out.format("%d   %15s   %4d   %2d   %3d   %30s   %3s", potion.getId(), potion.getName(), potion.getCost(), potion.getReq_level(), potion.getAtt_increase(), potion.getAtt_affected(), potion.getEquip());
+            System.out.println();
+        }
+    }
 
     public static List<String> getList() {
         List<String> list = new ArrayList<>();

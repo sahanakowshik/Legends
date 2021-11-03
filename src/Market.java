@@ -1,8 +1,11 @@
 public class Market {
     public void createMarket(){
         MarketItems.createMarketList();
-        MarketItems.displayWeaponry();
-        MarketItems.displayArmory();
-        MarketItems.displayPotions();
+        Armory.displayArmory();
+        Weaponry.displayWeaponry();
+        Potions.displayPotions();
+        FireSpell.displayFireSpells();
+        IceSpell.displayIceSpells();
+        LightningSpell.displayLightningSpells();
     }
 }

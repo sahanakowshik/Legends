@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Armory extends MarketItems{
+    public static List<String> allLines;
     private int id;
     private String Name;
     private int cost;
@@ -65,20 +66,17 @@ public class Armory extends MarketItems{
     }
 
 //    @Override
-//    public void displayList() {
-//        String[] words = allLines.get(0).split("/");
-//        String line = String.join("   ", words);
-//        System.out.println("Id   " + line);
-//        for(Armory armory: armories){
-//            System.out.format("%d  %20s %d  %d %d %s", armory.getId(), armory.getName(), armory.getCost(), armory.getReq_level(), armory.getDamage_reduction(), armory.getEquip());
-//            System.out.println();
-//        }
-////        for (int i=1;i<allLines.size();i++) {
-////            System.out.print(i + "   ");
-////            System.out.println(allLines.get(i));
-////        }
-//    }
+    public static void displayArmory(){
+        String[] words = allLines.get(0).split("/");
+        String line = String.join("   ", words);
+        System.out.println("Id   " + line + "   Equip");
+        for(Armory armory: armories){
+            System.out.format("%d   %15s   %4d   %2d   %4d   %3s", armory.getId(), armory.getName(), armory.getCost(), armory.getReq_level(), armory.getDamage_reduction(), armory.getEquip());
+            System.out.println();
+        }
+    }
 
+//    @Override
     public static List<String> getList() {
         try {
             allLines = Files.readAllLines(Paths.get("/home/sahana/Documents/611/Legends/src/Legends_Monsters_and_Heroes/Armory.txt"));

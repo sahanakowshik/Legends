@@ -83,7 +83,7 @@ public abstract class Heroes extends LegendsPlayer{
     }
 
     public void displayHero(int i){
-        System.out.format("%d   %20s    %10d     %d    %d    %d     %d     %d     %d    %d%n", i+1, this.getName(), this.getLevel(), this.getHp(), this.getMana(), this.getStrength(), this.getAgility(), this.getDexterity(), this.getStarting_money(), this.getStarting_exp());
+        System.out.format("%d   %20s    %8d     %4d    %4d    %4d     %4d     %4d     %4d    %2d%n", i+1, this.getName(), this.getLevel(), this.getHp(), this.getMana(), this.getStrength(), this.getAgility(), this.getDexterity(), this.getStarting_money(), this.getStarting_exp());
     }
 
     public void setStarting_exp(int starting_exp) {
