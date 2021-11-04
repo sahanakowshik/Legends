@@ -15,8 +15,8 @@ public class IceSpell extends Spell{
         return "Ice Spell";
     }
 
-    //    @Override
-    public static void displayIceSpells(){
+    @Override
+    public void display(){
         Display.displaySpells(iceSpells);
     }
 

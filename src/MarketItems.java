@@ -12,7 +12,9 @@ public abstract class MarketItems {
     protected static List<Spell> iceSpells;
     protected static List<Spell> lightningSpells;
 
-//    public abstract void displayList();
+    public abstract void display();
+
+    public abstract void createList();
 
     public static void createArmory(){
         List<String> list = Armory.getList();

@@ -69,8 +69,8 @@ public class Armory extends MarketItems implements isUsable, isBuyableSellable{
         return "Armory";
     }
 
-//    @Override
-    public static void displayArmory(){
+    @Override
+    public void display(){
         Display.displayArmory(armories);
     }
 

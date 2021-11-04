@@ -12,9 +12,4 @@ public interface Game {
      */
     public void startGame();
 
-    /**
-     * Get Players of the game
-     */
-    public Player[] getPlayers();
-
 }

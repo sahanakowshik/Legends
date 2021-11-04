@@ -15,8 +15,8 @@ public class LightningSpell extends Spell{
         return "Lightning Spell";
     }
 
-    //    @Override
-    public static void displayLightningSpells(){
+    @Override
+    public void display(){
         Display.displaySpells(lightningSpells);
     }
 

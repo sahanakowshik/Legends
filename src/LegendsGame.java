@@ -1,7 +1,6 @@
 import java.util.*;
 
-public class LegendsGame extends BoardGame{
-    Random rand = new Random();
+public class LegendsGame extends RpgGame{
     public Map<Integer,ArrayList<Monsters>> monsters=new HashMap<Integer,ArrayList<Monsters>>();
     private List<Monsters> curMonsters;
 
@@ -180,10 +179,5 @@ public class LegendsGame extends BoardGame{
 
 //            break;
         }
-    }
-
-    @Override
-    public Player[] getPlayers() {
-        return new Player[0];
     }
 }

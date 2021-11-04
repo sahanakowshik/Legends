@@ -80,8 +80,27 @@ public class Weaponry extends MarketItems implements isBuyableSellable, isUsable
         return "Weaponry";
     }
 
-    public static void displayWeaponry(){
+    @Override
+    public void display(){
         Display.displayWeaponry(weapons);
+    }
+
+    @Override
+    public void createList(){
+        List<String> list = this.getList();
+        weapons = new ArrayList<>();
+        for(String str: list){
+            String[] words = str.split("\\s+");
+            Weaponry weapon = new Weaponry();
+            weapon.setId(Integer.parseInt(words[0]));
+            weapon.setName(words[1]);
+            weapon.setCost(Integer.parseInt(words[2]));
+            weapon.setLevel(Integer.parseInt(words[3]));
+            weapon.setDamage(Integer.parseInt(words[4]));
+            weapon.setReq_hands(Integer.parseInt(words[5]));
+            weapon.setEquip("No");
+            weapons.add(weapon);
+        }
     }
 
     public static List<String> getList() {

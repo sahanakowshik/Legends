@@ -15,8 +15,8 @@ public class FireSpell extends Spell{
         return "Fire Spell";
     }
 
-    //    @Override
-    public static void displayFireSpells(){
+    @Override
+    public void display(){
         Display.displaySpells(fireSpells);
     }
 

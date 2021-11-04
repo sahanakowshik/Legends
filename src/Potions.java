@@ -79,7 +79,8 @@ public class Potions extends MarketItems implements isBuyableSellable, isDrinkab
         return "Potions";
     }
 
-    public static void displayPotions(){
+    @Override
+    public void display(){
         Display.displayPotions(potions);
     }
 
