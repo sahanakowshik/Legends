@@ -2,6 +2,24 @@ import java.util.Random;
 
 public class LegendsBoard extends Board{
     Random random = new Random();
+    private int i;
+    private int j;
+
+    public int getI() {
+        return i;
+    }
+
+    public void setI(int i) {
+        this.i = i;
+    }
+
+    public int getJ() {
+        return j;
+    }
+
+    public void setJ(int j) {
+        this.j = j;
+    }
     @Override
     public void createBoard() {
         for(int i=0;i<GameConstants.boardSize;i++){
@@ -31,40 +49,74 @@ public class LegendsBoard extends Board{
                     if(this.grid[i+1][j] instanceof isAccessible){
                         this.grid[i][j].setPlayer(player);
                         this.grid[i][j].setIsSet(true);
+                        this.setI(i);
+                        this.setJ(j);
                         return;
                     }
                 } catch (Exception e) {
-                    e.printStackTrace();
+//                    e.printStackTrace();
                 }
                 try{
                     if(this.grid[i-1][j] instanceof isAccessible){
                         this.grid[i][j].setPlayer(player);
                         this.grid[i][j].setIsSet(true);
+                        this.setI(i);
+                        this.setJ(j);
                         return;
                     }
                 } catch (Exception e) {
-                    e.printStackTrace();
+//                    e.printStackTrace();
                 }
                 try{
                     if(this.grid[i][j+1] instanceof isAccessible){
                         this.grid[i][j].setPlayer(player);
                         this.grid[i][j].setIsSet(true);
+                        this.setI(i);
+                        this.setJ(j);
                         return;
                     }
                 } catch (Exception e) {
-                    e.printStackTrace();
+//                    e.printStackTrace();
                 }
                 try{
                     if(this.grid[i][j-1] instanceof isAccessible){
                         this.grid[i][j].setPlayer(player);
                         this.grid[i][j].setIsSet(true);
+                        this.setI(i);
+                        this.setJ(j);
                         return;
                     }
                 } catch (Exception e) {
-                    e.printStackTrace();
+//                    e.printStackTrace();
                 }
             }
         } while(true);
+    }
+
+    public boolean canMove(int i, int j){
+        if(i < 0 || j < 0){
+            System.out.println("Out of bounds");
+            return false;
+        }
+        if(i >= GameConstants.boardSize || j >= GameConstants.boardSize) {
+            System.out.println("Out of bounds");
+            return false;
+        }
+        if(this.grid[i][j] instanceof isAccessible)
+            return true;
+        else
+            return false;
+    }
+
+    public void move(int i, int j, LegendsPlayer player){
+        if(this.grid[i][j] instanceof isAccessible){
+            this.grid[i][j].setPlayer(player);
+            this.grid[i][j].setIsSet(true);
+            this.grid[this.i][this.j].setIsSet(false);
+//            this.grid[this.i][this.j].setPlayer(null);
+            this.setI(i);
+            this.setJ(j);
+        }
     }
 
 

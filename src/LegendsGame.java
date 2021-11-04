@@ -81,13 +81,13 @@ public class LegendsGame extends BoardGame{
         LegendsBoard board = new LegendsBoard();
         board.createBoard();
         board.addPlayer(player);
-        Display.displayBoard(board);
+//        Display.displayBoard(board);
         System.out.println("Lets build the team");
         player.addHeroes();
         System.out.println("Your team:");
         Display.displayHeroes(player.getHeroes());
-        this.createMonsters();
-        this.getMonsters(player.getnHero(), player.getHeroes().get(0).getLevel());
+//        this.createMonsters();
+//        this.getMonsters(player.getnHero(), player.getHeroes().get(0).getLevel());
 //        for(Monsters mon: player.getCurMonsters()){
 //            System.out.println(mon.getLevel());
 //        }
@@ -95,23 +95,88 @@ public class LegendsGame extends BoardGame{
 
         Market market = new Market();
         market.createMarket();
+        Display.displayBoard(board);
+        Display.displayLegend();
 
         while(true){
-            Display.displayBoard(board);
-            Display.displayLegend();
-            String[] data = {"w", "a", "s", "d", "i", "e", "q"};
+            String[] data = {"w", "a", "s", "d", "i", "e", "m", "q"};
             String choice;
+            label:
             do {
-                choice = GameFunctions.safeScanString(new Scanner(System.in), "It is your turn to move:\nMove(W/A/S/D)\nCheck player Info(I)\nCheck weapons Inventory (E)\nShow map (M)\nQuit (Q)");
+                choice = GameFunctions.safeScanString(new Scanner(System.in), "It is your turn to move:\nMove(W/A/S/D)\nCheck player Info(I)\nCheck weapons Inventory (E)\nShow map (M)\nQuit (Q)\n");
                 choice = choice.toLowerCase();
                 if(!Arrays.asList(data).contains(choice)) {
                     System.out.println("Please enter a valid choice....");
                 }else {
-                    break;
+                    switch (choice) {
+                        case "w":
+                            if (!board.canMove(board.getI() - 1, board.getJ())) {
+                                System.out.println("Inaccessible! Please enter a valid choice....");
+                            } else {
+                                board.move(board.getI() - 1, board.getJ(), player);
+                                Display.displayBoard(board);
+                                Display.displayLegend();
+                                break label;
+                            }
+                            break;
+                        case "s":
+                            if (!board.canMove(board.getI() + 1, board.getJ())) {
+                                System.out.println("Inaccessible! Please enter a valid choice....");
+                            } else {
+                                board.move(board.getI() + 1, board.getJ(), player);
+                                Display.displayBoard(board);
+                                Display.displayLegend();
+                                break label;
+                            }
+                            break;
+                        case "a":
+                            if (!board.canMove(board.getI(), board.getJ() - 1)) {
+                                System.out.println("Inaccessible! Please enter a valid choice....");
+                            } else {
+                                board.move(board.getI(), board.getJ() - 1, player);
+                                Display.displayBoard(board);
+                                Display.displayLegend();
+                                break label;
+                            }
+                            break;
+                        case "d":
+                            if (!board.canMove(board.getI(), board.getJ() + 1)) {
+                                System.out.println("Inaccessible! Please enter a valid choice....");
+                            } else {
+                                board.move(board.getI(), board.getJ() + 1, player);
+                                Display.displayBoard(board);
+                                Display.displayLegend();
+                                break label;
+                            }
+                            break;
+                        case "e":
+                            for (int i = 0; i < player.getnHero(); i++) {
+                                System.out.println(player.getHeroes().get(i).getName() + " Inventory");
+                                player.getHeroes().get(i).showInventory();
+                                System.out.println();
+                            }
+                            break;
+//                            break label;
+                        case "i":
+                            Display.displayHeroes(player.getHeroes());
+                            break;
+//                            break label;
+                        case "m":
+                            Display.displayBoard(board);
+                            Display.displayLegend();
+                            break;
+                        default:
+                            System.out.println("Thanks for playing");
+                            return;
+                    }
                 }
             }while (true);
-            switch (choice){
-//                case "w": Board.move("Up");
+
+
+//            switch (choice){
+//                case "w": while(!board.canMove(board.getI(), board.getJ())){
+//                    System.out.println("Please enter a valid choice....");
+//                }
 //                        break;
 //                case "s": Board.move("Down");
 //                        break;
@@ -119,19 +184,21 @@ public class LegendsGame extends BoardGame{
 //                        break;
 //                case "d": Board.move("Right");
 //                        break;
-                case "i": Display.displayHeroes(player.getHeroes());
-                          break;
-                case "e": for(int i=0;i<player.getnHero();i++){
-                              System.out.println(player.getHeroes().get(i).getName() + " Inventory");
-                              player.getHeroes().get(i).showInventory();
-                              System.out.println();
-                          }
-                          break;
-                case "q":
-                    System.out.println("Thanks for playing");
-                    return;
-            }
-            break;
+//                case "i": Display.displayHeroes(player.getHeroes());
+//                          break;
+//                case "e": for(int i=0;i<player.getnHero();i++){
+//                              System.out.println(player.getHeroes().get(i).getName() + " Inventory");
+//                              player.getHeroes().get(i).showInventory();
+//                              System.out.println();
+//                          }
+//                          break;
+//                case "m": Display.displayBoard(board);
+//                          Display.displayLegend();
+//                          break;
+//                case "q": System.out.println("Thanks for playing");
+//                          return;
+//            }
+//            break;
         }
     }
 
