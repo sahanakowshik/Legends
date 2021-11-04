@@ -4,49 +4,6 @@ public class LegendsPlayer extends Player{
     private int nHero;
     private String symbol;
     private List<Heroes> heroes;
-    private List<Monsters> curMonsters;
-    private List<Weaponry> weapons;
-    private List<Armory> armories;
-    private List<Potions> potions;
-    private List<Spell> spells;
-    public Map<Integer,ArrayList<Monsters>> monsters=new HashMap<Integer,ArrayList<Monsters>>();
-
-    public List<Weaponry> getWeapons() {
-        return weapons;
-    }
-
-    public void addWeapon(Weaponry weapon) {
-        this.weapons.add(weapon);
-    }
-
-    public List<Armory> getArmories() {
-        return armories;
-    }
-
-    public void addArmory(Armory armory) {
-        this.armories.add(armory);
-    }
-
-    public List<Potions> getPotions() {
-        return potions;
-    }
-
-    public void addPotion(Potions potion) {
-        this.potions.add(potion);
-    }
-
-    public List<Spell> getSpells() {
-        return spells;
-    }
-
-    public void addSpell(Spell spell) {
-        this.spells.add(spell);
-    }
-
-
-    public List<Monsters> getCurMonsters() {
-        return curMonsters;
-    }
 
     public List<Heroes> getHeroes() {
         return heroes;
@@ -92,57 +49,6 @@ public class LegendsPlayer extends Player{
 
     }
 
-    public void createMonsters(){
-        for(int i=1;i<=10;i++){
-            monsters.put(i, new ArrayList<Monsters>());
-        }
-        List<String> ld = Dragon.getList();
-        for(String str: ld){
-            String[] words = str.split("\\s+");
-            Monsters monster = new Dragon();
-            monster.setPlayerId(Integer.parseInt(words[0]));
-            monster.setName(words[1]);
-            monster.setLevel(Integer.parseInt(words[2]));
-            monster.setDamage(Integer.parseInt(words[3]));
-            monster.setDefense(Integer.parseInt(words[4]));
-            monster.setDodge_chance(Integer.parseInt(words[5]));
-            monsters.get(Integer.parseInt(words[2])).add(monster);
-        }
-        List<String> le = Exoskeleton.getList();
-        for(String str: le){
-            String[] words = str.split("\\s+");
-            Monsters monster = new Exoskeleton();
-            monster.setPlayerId(Integer.parseInt(words[0]));
-            monster.setName(words[1]);
-            monster.setLevel(Integer.parseInt(words[2]));
-            monster.setDamage(Integer.parseInt(words[3]));
-            monster.setDefense(Integer.parseInt(words[4]));
-            monster.setDodge_chance(Integer.parseInt(words[5]));
-            monsters.get(Integer.parseInt(words[2])).add(monster);
-        }
-        List<String> ls = Spirit.getList();
-        for(String str: ls){
-            String[] words = str.split("\\s+");
-            Monsters monster = new Spirit();
-            monster.setPlayerId(Integer.parseInt(words[0]));
-            monster.setName(words[1]);
-            monster.setLevel(Integer.parseInt(words[2]));
-            monster.setDamage(Integer.parseInt(words[3]));
-            monster.setDefense(Integer.parseInt(words[4]));
-            monster.setDodge_chance(Integer.parseInt(words[5]));
-            monsters.get(monster.getLevel()).add(monster);
-        }
-//        for(int i=1;i<=10;i++){
-//            System.out.println(monsters.get(i).size());
-//        }
-    }
-
-    public void getMonsters(int count, int level){
-        ArrayList<Monsters> list = monsters.get(level);
-        Collections.shuffle(list);
-        curMonsters = list.subList(0, count);
-    }
-
     public void setSymbol(String symbol) {
         this.symbol = symbol;
     }
@@ -155,17 +61,4 @@ public class LegendsPlayer extends Player{
         this.nHero = nHero;
     }
 
-    public void showInventory(){
-        System.out.println("List of armories:");
-        Display.displayArmory(armories);
-        System.out.println();
-        System.out.println("List of weapons:");
-        Display.displayWeaponry(weapons);
-        System.out.println();
-        System.out.println("List of potions:");
-        Display.displayPotions(potions);
-        System.out.println();
-        System.out.println("List of spells");
-        Display.displaySpells(spells);
-    }
 }

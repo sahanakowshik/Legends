@@ -12,7 +12,7 @@ public class Sorcerer extends Heroes{
     }
 
     public Sorcerer(){
-        allLines = Parser.parser("Sorcerer.txt");
+        allLines = Parser.parser("Sorcerers.txt");
         this.n = allLines.size();
     }
 

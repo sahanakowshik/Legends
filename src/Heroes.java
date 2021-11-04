@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Heroes extends LegendsPlayer{
@@ -10,6 +11,42 @@ public abstract class Heroes extends LegendsPlayer{
     private int starting_exp;
     private int level;
     private int hp;
+    private List<Weaponry> weapons = new ArrayList<>();
+    private List<Armory> armories = new ArrayList<>();
+    private List<Potions> potions = new ArrayList<>();
+    private List<Spell> spells = new ArrayList<>();
+
+    public List<Weaponry> getWeapons() {
+        return weapons;
+    }
+
+    public void addWeapon(Weaponry weapon) {
+        this.weapons.add(weapon);
+    }
+
+    public List<Armory> getArmories() {
+        return armories;
+    }
+
+    public void addArmory(Armory armory) {
+        this.armories.add(armory);
+    }
+
+    public List<Potions> getPotions() {
+        return potions;
+    }
+
+    public void addPotion(Potions potion) {
+        this.potions.add(potion);
+    }
+
+    public List<Spell> getSpells() {
+        return spells;
+    }
+
+    public void addSpell(Spell spell) {
+        this.spells.add(spell);
+    }
 
     public int getLevel() {
         return level;
@@ -87,6 +124,20 @@ public abstract class Heroes extends LegendsPlayer{
 
     public void setStarting_exp(int starting_exp) {
         this.starting_exp = starting_exp;
+    }
+
+    public void showInventory(){
+        System.out.println("List of armories:");
+        Display.displayArmory(armories);
+        System.out.println();
+        System.out.println("List of weapons:");
+        Display.displayWeaponry(weapons);
+        System.out.println();
+        System.out.println("List of potions:");
+        Display.displayPotions(potions);
+        System.out.println();
+        System.out.println("List of spells");
+        Display.displaySpells(spells);
     }
 
     public abstract int getN();

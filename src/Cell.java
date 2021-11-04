@@ -1,7 +1,26 @@
-public interface Cell{
-    String getSymbol();
+public abstract class Cell{
+    private boolean isSet;
+    private LegendsPlayer player;
 
-    String toString();
+    public boolean getIsSet() {
+        return isSet;
+    }
 
-    String getName();
+    public void setIsSet(boolean set) {
+        isSet = set;
+    }
+
+    public LegendsPlayer getPlayer() {
+        return player;
+    }
+
+    public void setPlayer(LegendsPlayer player) {
+        this.player = player;
+    }
+
+    public abstract String getSymbol();
+
+    public abstract String toString();
+
+    public abstract String getName();
 }

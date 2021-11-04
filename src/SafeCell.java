@@ -1,4 +1,4 @@
-public class SafeCell implements Cell{
+public class SafeCell extends Cell implements isAccessible {
     private String symbol = "     ";
     @Override
     public String getSymbol() {
