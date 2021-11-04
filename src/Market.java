@@ -1,4 +1,5 @@
 public class Market {
+    // builder pattern
     public void createMarket(){
         MarketItems.createMarketList();
         Armory.displayArmory();

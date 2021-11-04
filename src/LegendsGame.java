@@ -1,6 +1,7 @@
 import java.util.*;
 
 public class LegendsGame extends BoardGame{
+    Random rand = new Random();
     public Map<Integer,ArrayList<Monsters>> monsters=new HashMap<Integer,ArrayList<Monsters>>();
     private List<Monsters> curMonsters;
 
@@ -58,15 +59,16 @@ public class LegendsGame extends BoardGame{
             monster.setDodge_chance(Integer.parseInt(words[5]));
             monsters.get(monster.getLevel()).add(monster);
         }
-//        for(int i=1;i<=10;i++){
-//            System.out.println(monsters.get(i).size());
-//        }
     }
 
-    public void getMonsters(int count, int level){
-        ArrayList<Monsters> list = monsters.get(level);
-        Collections.shuffle(list);
-        curMonsters = list.subList(0, count);
+    public void getMonsters(LegendsPlayer player){
+        curMonsters = new ArrayList<>();
+        for(Heroes hero: player.getHeroes()){
+            curMonsters.add(monsters.get(hero.getLevel()).get(rand.nextInt(monsters.get(hero.getLevel()).size())));
+        }
+//        ArrayList<Monsters> list = monsters.get(level);
+//        Collections.shuffle(list);
+//        curMonsters = list.subList(0, count);
     }
 
     @Override
@@ -81,18 +83,11 @@ public class LegendsGame extends BoardGame{
         LegendsBoard board = new LegendsBoard();
         board.createBoard();
         board.addPlayer(player);
-//        Display.displayBoard(board);
         System.out.println("Lets build the team");
         player.addHeroes();
         System.out.println("Your team:");
         Display.displayHeroes(player.getHeroes());
-//        this.createMonsters();
-//        this.getMonsters(player.getnHero(), player.getHeroes().get(0).getLevel());
-//        for(Monsters mon: player.getCurMonsters()){
-//            System.out.println(mon.getLevel());
-//        }
-//        System.out.println(player.getCurMonsters());
-
+        this.createMonsters();
         Market market = new Market();
         market.createMarket();
         Display.displayBoard(board);
@@ -172,32 +167,17 @@ public class LegendsGame extends BoardGame{
                 }
             }while (true);
 
+            if(board.grid[board.getI()][board.getJ()].getSymbol().contains("M")){
+                System.out.println("Market");
+            }
+            else if(!board.grid[board.getI()][board.getJ()].getSymbol().contains("I") && GameFunctions.getRandomBoolean((float)0.17)){
+                this.getMonsters(player);
+                for(Monsters mon: this.getCurMonsters()){
+                    System.out.println(mon.getName());
+                }
+                System.out.println(this.getCurMonsters());
+            }
 
-//            switch (choice){
-//                case "w": while(!board.canMove(board.getI(), board.getJ())){
-//                    System.out.println("Please enter a valid choice....");
-//                }
-//                        break;
-//                case "s": Board.move("Down");
-//                        break;
-//                case "a": Board.move("Left");
-//                        break;
-//                case "d": Board.move("Right");
-//                        break;
-//                case "i": Display.displayHeroes(player.getHeroes());
-//                          break;
-//                case "e": for(int i=0;i<player.getnHero();i++){
-//                              System.out.println(player.getHeroes().get(i).getName() + " Inventory");
-//                              player.getHeroes().get(i).showInventory();
-//                              System.out.println();
-//                          }
-//                          break;
-//                case "m": Display.displayBoard(board);
-//                          Display.displayLegend();
-//                          break;
-//                case "q": System.out.println("Thanks for playing");
-//                          return;
-//            }
 //            break;
         }
     }
