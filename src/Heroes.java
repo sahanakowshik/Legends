@@ -11,10 +11,17 @@ public abstract class Heroes extends LegendsPlayer{
     private int starting_exp;
     private int level;
     private int hp;
-    private List<Weaponry> weapons = new ArrayList<>();
-    private List<Armory> armories = new ArrayList<>();
-    private List<Potions> potions = new ArrayList<>();
-    private List<Spell> spells = new ArrayList<>();
+    private List<Weaponry> weapons;
+    private List<Armory> armories;
+    private List<Potions> potions;
+    private List<Spell> spells;
+
+    public Heroes(){
+        weapons = new ArrayList<>();
+        armories = new ArrayList<>();
+        potions = new ArrayList<>();
+        spells = new ArrayList<>();
+    }
 
     public List<Weaponry> getWeapons() {
         return weapons;
