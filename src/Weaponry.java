@@ -103,7 +103,7 @@ public class Weaponry extends MarketItems implements isBuyableSellable, isUsable
         }
     }
 
-    public static List<String> getList() {
+    public List<String> getList() {
         allLines = Parser.parser("Weaponry.txt");
         List<String> list = new ArrayList<>();
         for (int i=1;i<allLines.size();i++) {

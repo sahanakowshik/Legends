@@ -20,8 +20,26 @@ public class FireSpell extends Spell{
         Display.displaySpells(fireSpells);
     }
 
+    @Override
+    public void createList() {
+        List<String> list = this.getList();
+        fireSpells = new ArrayList<>();
+        for(String str: list){
+            String[] words = str.split("\\s+");
+            Spell spell = new FireSpell();
+            spell.setId(Integer.parseInt(words[0]));
+            spell.setName(words[1]);
+            spell.setCost(Integer.parseInt(words[2]));
+            spell.setReq_level(Integer.parseInt(words[3]));
+            spell.setDamage(Integer.parseInt(words[4]));
+            spell.setMana_cost(Integer.parseInt(words[5]));
+            spell.setEquip("No");
+            fireSpells.add(spell);
+        }
+    }
+
     //    @Override
-    public static List<String> getList() {
+    public List<String> getList() {
         allLines = Parser.parser("FireSpells.txt");
         List<String> list = new ArrayList<>();
         for (int i=1;i<allLines.size();i++) {

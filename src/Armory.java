@@ -74,8 +74,25 @@ public class Armory extends MarketItems implements isUsable, isBuyableSellable{
         Display.displayArmory(armories);
     }
 
-//    @Override
-    public static List<String> getList() {
+    @Override
+    public void createList() {
+        List<String> list = this.getList();
+        armories = new ArrayList<>();
+        for(String str: list){
+            String[] words = str.split("\\s+");
+            Armory armory = new Armory();
+            armory.setId(Integer.parseInt(words[0]));
+            armory.setName(words[1]);
+            armory.setCost(Integer.parseInt(words[2]));
+            armory.setReq_level(Integer.parseInt(words[3]));
+            armory.setDamage_reduction(Integer.parseInt(words[4]));
+            armory.setEquip("No");
+            armories.add(armory);
+        }
+    }
+
+    //    @Override
+    public List<String> getList() {
         allLines = Parser.parser("Armory.txt");
         List<String> list = new ArrayList<>();
         for (int i=1;i<allLines.size();i++) {

@@ -84,7 +84,25 @@ public class Potions extends MarketItems implements isBuyableSellable, isDrinkab
         Display.displayPotions(potions);
     }
 
-    public static List<String> getList() {
+    @Override
+    public void createList(){
+        List<String> list = this.getList();
+        potions = new ArrayList<>();
+        for(String str: list){
+            String[] words = str.split("\\s+");
+            Potions potion = new Potions();
+            potion.setId(Integer.parseInt(words[0]));
+            potion.setName(words[1]);
+            potion.setCost(Integer.parseInt(words[2]));
+            potion.setReq_level(Integer.parseInt(words[3]));
+            potion.setAtt_increase(Integer.parseInt(words[4]));
+            potion.setAtt_affected(words[5]);
+            potion.setEquip("No");
+            potions.add(potion);
+        }
+    }
+
+    public List<String> getList() {
         List<String> list = new ArrayList<>();
         try {
             allLines = Files.readAllLines(Paths.get("src/Legends_Monsters_and_Heroes/Potions.txt"));

@@ -88,7 +88,13 @@ public class LegendsGame extends RpgGame{
         Display.displayHeroes(player.getHeroes());
         this.createMonsters();
         Market market = new Market();
-        market.createMarket();
+        market.createMarketList();
+//        market.displayArmory();
+//        market.displayWeaponry();
+//        market.displayPotions();
+        market.displayFireSpells();
+        market.displayIceSpells();
+        market.displayLightningSpells();
         Display.displayBoard(board);
         Display.displayLegend();
 

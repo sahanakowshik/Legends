@@ -8,9 +8,37 @@ public class Market {
     private MarketItems iceSpell;
     private MarketItems lightningSpell;
 
+    public Market(){
+        armory = new Armory();
+        weaponry = new Weaponry();
+        potion = new Potions();
+        fireSpell = new FireSpell();
+        iceSpell = new IceSpell();
+        lightningSpell = new LightningSpell();
+    }
 
-    public void createMarket(){
-        MarketItems.createMarketList();
+    public void createArmory(){
+        armory.createList();
+    }
+
+    public void createWeapons(){
+        weaponry.createList();
+    }
+
+    public void createPotions(){
+        potion.createList();
+    }
+
+    public void createFireSpells(){
+        fireSpell.createList();
+    }
+
+    public void createIceSpells(){
+        iceSpell.createList();
+    }
+
+    public void createLightningSpells(){
+        lightningSpell.createList();
     }
 
     public void displayArmory(){
@@ -35,6 +63,19 @@ public class Market {
 
     public void displayLightningSpells(){
         lightningSpell.display();
+    }
+
+    public void createSpells(){
+        this.createFireSpells();
+        this.createIceSpells();
+        this.createLightningSpells();
+    }
+
+    public void createMarketList(){
+        this.createArmory();
+        this.createWeapons();
+        this.createPotions();
+        this.createSpells();
     }
 
 }
