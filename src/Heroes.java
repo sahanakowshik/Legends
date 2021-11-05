@@ -19,6 +19,15 @@ public abstract class Heroes extends LegendsPlayer{
     private List<Potions> potions;
     private List<Spell> spells;
     private boolean isEquipped;
+    private int exp;
+
+    public int getExp() {
+        return exp;
+    }
+
+    public void setExp(int exp) {
+        this.exp = exp;
+    }
 
     public int getDefense() {
         return defense;
@@ -58,6 +67,7 @@ public abstract class Heroes extends LegendsPlayer{
         potions = new ArrayList<>();
         spells = new ArrayList<>();
         isEquipped = false;
+        exp = 0;
     }
 
     public void usePotion(String[] words, int att_inc){
