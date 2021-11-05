@@ -11,16 +11,26 @@ public abstract class Heroes extends LegendsPlayer{
     private int starting_exp;
     private int level;
     private int hp;
+    private boolean isEquipped;
     private List<Weaponry> weapons;
     private List<Armory> armories;
     private List<Potions> potions;
     private List<Spell> spells;
+
+    public boolean getIsEquipped() {
+        return isEquipped;
+    }
+
+    public void setIsEquipped(boolean isEquipped) {
+        this.isEquipped = isEquipped;
+    }
 
     public Heroes(){
         weapons = new ArrayList<>();
         armories = new ArrayList<>();
         potions = new ArrayList<>();
         spells = new ArrayList<>();
+        isEquipped = false;
     }
 
     public List<Weaponry> getWeapons() {
@@ -134,16 +144,32 @@ public abstract class Heroes extends LegendsPlayer{
     }
 
     public void showInventory(){
-        System.out.println("List of armories:");
+        this.showArmories();
+        System.out.println();
+        this.showWeapons();
+        System.out.println();
+        this.showPotions();
+        System.out.println();
+        this.showSpells();
+    }
+
+    public void showArmories(){
+        System.out.println("\u001B[33m List of armories: \u001b[0m");
         Display.displayArmory(armories);
-        System.out.println();
-        System.out.println("List of weapons:");
+    }
+
+    public void showWeapons(){
+        System.out.println("\u001B[33m List of weapons: \u001b[0m");
         Display.displayWeaponry(weapons);
-        System.out.println();
-        System.out.println("List of potions:");
+    }
+
+    public void showPotions(){
+        System.out.println("\u001B[33m List of potions: \u001b[0m");
         Display.displayPotions(potions);
-        System.out.println();
-        System.out.println("List of spells");
+    }
+
+    public void showSpells(){
+        System.out.println("\u001B[33m List of spells \u001b[0m");
         Display.displaySpells(spells);
     }
 

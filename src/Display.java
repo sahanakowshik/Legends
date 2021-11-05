@@ -31,10 +31,6 @@ public class Display {
         }
     }
 
-    public static void displayInfo(){
-
-    }
-
     public static void displayLegend(){
         System.out.println("---------Legend---------");
         System.out.println("M       = Market");
@@ -66,9 +62,9 @@ public class Display {
     public static void displayPotions(List<Potions> potions){
         String[] words = Potions.allLines.get(0).split("/");
         String line = String.join("   ", words);
-        System.out.println("Id   " + line + "   Equip");
+        System.out.println("Id   " + line);
         for(Potions potion: potions){
-            System.out.format("%d   %15s   %4d   %2d   %3d   %30s   %3s", potion.getId(), potion.getName(), potion.getCost(), potion.getReq_level(), potion.getAtt_increase(), potion.getAtt_affected(), potion.getEquip());
+            System.out.format("%d   %15s   %4d   %2d   %3d   %30s", potion.getId(), potion.getName(), potion.getCost(), potion.getReq_level(), potion.getAtt_increase(), potion.getAtt_affected());
             System.out.println();
         }
     }
@@ -76,9 +72,9 @@ public class Display {
     public static void displaySpells(List<Spell> spells){
         String[] words = Spell.allLines.get(0).split("/");
         String line = String.join("   ", words);
-        System.out.println("Id   " + line + "   Equip");
+        System.out.println("Id   " + line);
         for(Spell spell: spells){
-            System.out.format("%d   %16s   %4d   %2d   %4d   %4d   %3s", spell.getId(), spell.getName(), spell.getCost(), spell.getReq_level(), spell.getDamage(), spell.getMana_cost(), spell.getEquip());
+            System.out.format("%d   %16s   %4d   %2d   %4d   %4d", spell.getId(), spell.getName(), spell.getCost(), spell.getReq_level(), spell.getDamage(), spell.getMana_cost());
             System.out.println();
         }
     }

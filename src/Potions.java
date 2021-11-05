@@ -12,7 +12,7 @@ public class Potions extends MarketItems implements isBuyableSellable, isDrinkab
     private int req_level;
     private int att_increase;
     private String att_affected;
-    private String equip;
+//    private String equip;
 
     public static List<String> getAllLines() {
         return allLines;
@@ -66,13 +66,13 @@ public class Potions extends MarketItems implements isBuyableSellable, isDrinkab
         this.att_affected = att_affected;
     }
 
-    public String getEquip() {
-        return equip;
-    }
-
-    public void setEquip(String equip) {
-        this.equip = equip;
-    }
+//    public String getEquip() {
+//        return equip;
+//    }
+//
+//    public void setEquip(String equip) {
+//        this.equip = equip;
+//    }
 
 //    @Override
     public String getType() {
@@ -97,19 +97,13 @@ public class Potions extends MarketItems implements isBuyableSellable, isDrinkab
             potion.setReq_level(Integer.parseInt(words[3]));
             potion.setAtt_increase(Integer.parseInt(words[4]));
             potion.setAtt_affected(words[5]);
-            potion.setEquip("No");
             potions.add(potion);
         }
     }
 
     public List<String> getList() {
+        allLines = Parser.parser("Potions.txt");
         List<String> list = new ArrayList<>();
-        try {
-            allLines = Files.readAllLines(Paths.get("src/Legends_Monsters_and_Heroes/Potions.txt"));
-//            lineCount = allLines.size();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
         for (int i=1;i<allLines.size();i++) {
             String str = i + "   " + allLines.get(i);
             list.add(str);

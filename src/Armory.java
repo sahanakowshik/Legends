@@ -3,6 +3,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Armory extends MarketItems implements isUsable, isBuyableSellable{
     public static List<String> allLines;
@@ -67,6 +68,19 @@ public class Armory extends MarketItems implements isUsable, isBuyableSellable{
 
     public String getType() {
         return "Armory";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Armory armory = (Armory) o;
+        return id == armory.id && cost == armory.cost && req_level == armory.req_level && damage_reduction == armory.damage_reduction && Objects.equals(Name, armory.Name) && Objects.equals(equip, armory.equip);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, Name, cost, req_level, damage_reduction, equip);
     }
 
     @Override

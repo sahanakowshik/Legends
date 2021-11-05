@@ -17,6 +17,30 @@ public class Market {
         lightningSpell = new LightningSpell();
     }
 
+    public MarketItems getArmory() {
+        return armory;
+    }
+
+    public MarketItems getWeaponry() {
+        return weaponry;
+    }
+
+    public MarketItems getPotion() {
+        return potion;
+    }
+
+    public MarketItems getFireSpell() {
+        return fireSpell;
+    }
+
+    public MarketItems getIceSpell() {
+        return iceSpell;
+    }
+
+    public MarketItems getLightningSpell() {
+        return lightningSpell;
+    }
+
     public void createArmory(){
         armory.createList();
     }

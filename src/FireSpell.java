@@ -33,7 +33,7 @@ public class FireSpell extends Spell{
             spell.setReq_level(Integer.parseInt(words[3]));
             spell.setDamage(Integer.parseInt(words[4]));
             spell.setMana_cost(Integer.parseInt(words[5]));
-            spell.setEquip("No");
+//            spell.setEquip("No");
             fireSpells.add(spell);
         }
     }

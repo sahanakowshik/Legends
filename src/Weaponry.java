@@ -3,6 +3,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Weaponry extends MarketItems implements isBuyableSellable, isUsable{
     public static List<String> allLines;
@@ -12,6 +13,7 @@ public class Weaponry extends MarketItems implements isBuyableSellable, isUsable
     private int level;
     private int damage;
     private String equip;
+    private int req_hands;
 
     public static List<String> getAllLines() {
         return allLines;
@@ -73,9 +75,20 @@ public class Weaponry extends MarketItems implements isBuyableSellable, isUsable
         this.req_hands = req_hands;
     }
 
-    private int req_hands;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Weaponry weaponry = (Weaponry) o;
+        return id == weaponry.id && cost == weaponry.cost && level == weaponry.level && damage == weaponry.damage && req_hands == weaponry.req_hands && Objects.equals(Name, weaponry.Name) && Objects.equals(equip, weaponry.equip);
+    }
 
-//    @Override
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, Name, cost, level, damage, equip, req_hands);
+    }
+
+    //    @Override
     public String getType() {
         return "Weaponry";
     }

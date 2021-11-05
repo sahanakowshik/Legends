@@ -1,4 +1,5 @@
 import java.util.List;
+import java.util.Objects;
 
 public abstract class Spell extends MarketItems implements isCastable, isBuyableSellable{
     private int id;
@@ -7,10 +8,23 @@ public abstract class Spell extends MarketItems implements isCastable, isBuyable
     private int req_level;
     private int damage;
     private int mana_cost;
-    private String Equip;
+//    private String Equip;
     public static List<String> allLines;
 
-//    public static List<String> getList();
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Spell spell = (Spell) o;
+        return id == spell.id && cost == spell.cost && req_level == spell.req_level && damage == spell.damage && mana_cost == spell.mana_cost && Objects.equals(Name, spell.Name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, Name, cost, req_level, damage, mana_cost);
+    }
+
+    //    public static List<String> getList();
 
     public int getId() {
         return id;
@@ -60,11 +74,11 @@ public abstract class Spell extends MarketItems implements isCastable, isBuyable
         this.mana_cost = mana_cost;
     }
 
-    public String getEquip() {
-        return Equip;
-    }
-
-    public void setEquip(String equip) {
-        Equip = equip;
-    }
+//    public String getEquip() {
+//        return Equip;
+//    }
+//
+//    public void setEquip(String equip) {
+//        Equip = equip;
+//    }
 }
