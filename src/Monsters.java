@@ -9,6 +9,15 @@ public abstract class Monsters extends LegendsPlayer{
     private int damage;
     private int defense;
     private int dodge_chance;
+    private int hp;
+
+    public int getHp() {
+        return hp;
+    }
+
+    public void setHp(int hp) {
+        this.hp = hp;
+    }
 
 //    public Map<Integer,List<String>> monsters=new HashMap<Integer,List<String>>();
     // Combine monsters level wise and make list
@@ -56,31 +65,9 @@ public abstract class Monsters extends LegendsPlayer{
         this.dodge_chance = dodge_chance;
     }
 
-//    public void createMonsters(){
-//        for(int i=0;i<10;i++){
-//            monsters.put(i, new ArrayList<String>());
-//        }
-//        List<String> ld = Dragon.getList();
-//        for(String str: ld){
-//            String[] words = str.split("\\s+");
-//            monsters.get(Integer.parseInt(words[2])).add(str);
-//        }
-//        List<String> le = Exoskeleton.getList();
-//        for(String str: le){
-//            String[] words = str.split("\\s+");
-//            monsters.get(Integer.parseInt(words[2])).add(str);
-//        }
-//        List<String> ls = Spirit.getList();
-//        for(String str: ls){
-//            String[] words = str.split("\\s+");
-//            monsters.get(Integer.parseInt(words[2])).add(str);
-//        }
-//        System.out.println(monsters);
-//    }
-
-//    public void displayMonster(int i){
-//        System.out.format("%d   %20s    %10d     %d     %d%n", i+1, this.getName(), this.getLevel(), this.getDamage(), this.getDefense(), this.getDodge_chance());
-//    }
+    public void displayMonster(int i){
+        System.out.format("%d   %15s    %10d     %d    %d     %d%n", i+1, this.getName(), this.getLevel(), this.getHp(), this.getDamage(), this.getDefense(), this.getDodge_chance());
+    }
     public abstract int getN();
 
     public abstract String getType();

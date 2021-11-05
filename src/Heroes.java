@@ -11,11 +11,38 @@ public abstract class Heroes extends LegendsPlayer{
     private int starting_exp;
     private int level;
     private int hp;
-    private boolean isEquipped;
+    private int defense;
+    private Weaponry curWeapon;
+    private Armory curArmory;
     private List<Weaponry> weapons;
     private List<Armory> armories;
     private List<Potions> potions;
     private List<Spell> spells;
+    private boolean isEquipped;
+
+    public int getDefense() {
+        return defense;
+    }
+
+    public void setDefense(int defense) {
+        this.defense = defense;
+    }
+
+    public Weaponry getCurWeapon() {
+        return curWeapon;
+    }
+
+    public void setCurWeapon(Weaponry curWeapon) {
+        this.curWeapon = curWeapon;
+    }
+
+    public Armory getCurArmory() {
+        return curArmory;
+    }
+
+    public void setCurArmory(Armory curArmory) {
+        this.curArmory = curArmory;
+    }
 
     public boolean getIsEquipped() {
         return isEquipped;
@@ -31,6 +58,23 @@ public abstract class Heroes extends LegendsPlayer{
         potions = new ArrayList<>();
         spells = new ArrayList<>();
         isEquipped = false;
+    }
+
+    public void usePotion(String[] words, int att_inc){
+        for(String word: words){
+            if(word.toLowerCase().equals("mana"))
+                this.setMana(this.getMana() + att_inc);
+            else if(word.toLowerCase().equals("health"))
+                this.setHp(this.getHp() + att_inc);
+            else if(word.toLowerCase().equals("strength"))
+                this.setStrength(this.getStrength() + att_inc);
+            else if(word.toLowerCase().equals("agility"))
+                this.setAgility(this.getAgility() + att_inc);
+            else if(word.toLowerCase().equals("dexterity"))
+                this.setDexterity(this.getDexterity() + att_inc);
+            else if(word.toLowerCase().equals("defense"))
+                this.setDefense(this.getDefense() + att_inc);
+        }
     }
 
     public List<Weaponry> getWeapons() {
@@ -136,7 +180,7 @@ public abstract class Heroes extends LegendsPlayer{
     }
 
     public void displayHero(int i){
-        System.out.format("%d   %20s    %8d     %4d    %4d    %4d     %4d     %4d     %4d    %2d%n", i+1, this.getName(), this.getLevel(), this.getHp(), this.getMana(), this.getStrength(), this.getAgility(), this.getDexterity(), this.getStarting_money(), this.getStarting_exp());
+        System.out.format("%d   %20s    %8d     %4d    %4d    %4d     %4d     %4d     %4d    %2d  %3d%n", i+1, this.getName(), this.getLevel(), this.getHp(), this.getMana(), this.getStrength(), this.getAgility(), this.getDexterity(), this.getStarting_money(), this.getStarting_exp(), this.getDefense());
     }
 
     public void setStarting_exp(int starting_exp) {

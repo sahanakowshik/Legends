@@ -25,9 +25,16 @@ public class Display {
     }
 
     public static void displayHeroes(List<Heroes> heroes){
-        System.out.println("Id      Name                      Level   HP   mana strength agility dexterity starting money starting experience");
+        System.out.println("Id      Name                      Level   HP   mana strength agility dexterity starting_money starting_experience  Defense");
         for(int i=0;i<heroes.size();i++){
             heroes.get(i).displayHero(i);
+        }
+    }
+
+    public static void displayMonsters(List<Monsters> monsters){
+        System.out.println("Id      Name                  Level   Hp   Damage   Defense Dodge_Chance");
+        for(int i=0;i<monsters.size();i++){
+            monsters.get(i).displayMonster(i);
         }
     }
 

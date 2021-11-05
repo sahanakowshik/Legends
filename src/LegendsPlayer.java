@@ -43,6 +43,7 @@ public class LegendsPlayer extends Player{
             heroes.get(i).setDexterity(Integer.parseInt(str[4]));
             heroes.get(i).setStarting_money(Integer.parseInt(str[5]));
             heroes.get(i).setStarting_exp(Integer.parseInt(str[6]));
+            heroes.get(i).setDefense(0);
             heroes.get(i).setHp(100);
             heroes.get(i).setLevel(1);
         }

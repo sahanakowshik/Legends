@@ -5,7 +5,7 @@ public class LegendsGame extends RpgGame{
     private List<Monsters> curMonsters;
     private LegendsPlayer player;
     private Market market;
-//    private isEquip
+    private int exp;
 
     public List<Monsters> getCurMonsters() {
         return curMonsters;
@@ -32,6 +32,7 @@ public class LegendsGame extends RpgGame{
             monster.setPlayerId(Integer.parseInt(words[0]));
             monster.setName(words[1]);
             monster.setLevel(Integer.parseInt(words[2]));
+            monster.setHp(monster.getLevel() * 100);
             monster.setDamage(Integer.parseInt(words[3]));
             monster.setDefense(Integer.parseInt(words[4]));
             monster.setDodge_chance(Integer.parseInt(words[5]));
@@ -44,6 +45,7 @@ public class LegendsGame extends RpgGame{
             monster.setPlayerId(Integer.parseInt(words[0]));
             monster.setName(words[1]);
             monster.setLevel(Integer.parseInt(words[2]));
+            monster.setHp(monster.getLevel() * 100);
             monster.setDamage(Integer.parseInt(words[3]));
             monster.setDefense(Integer.parseInt(words[4]));
             monster.setDodge_chance(Integer.parseInt(words[5]));
@@ -56,6 +58,7 @@ public class LegendsGame extends RpgGame{
             monster.setPlayerId(Integer.parseInt(words[0]));
             monster.setName(words[1]);
             monster.setLevel(Integer.parseInt(words[2]));
+            monster.setHp(monster.getLevel() * 100);
             monster.setDamage(Integer.parseInt(words[3]));
             monster.setDefense(Integer.parseInt(words[4]));
             monster.setDodge_chance(Integer.parseInt(words[5]));
@@ -106,6 +109,7 @@ public class LegendsGame extends RpgGame{
                                                 item.setEquip("Yes");
                                                 hero.getArmories().add(item);
                                                 hero.setIsEquipped(true);
+                                                hero.setCurArmory(item);
                                             }
                                             else{
                                                 hero.getArmories().add(market.getArmory().armories.get(id));
@@ -145,6 +149,7 @@ public class LegendsGame extends RpgGame{
                                                 item.setEquip("Yes");
                                                 hero.getWeapons().add(item);
                                                 hero.setIsEquipped(true);
+                                                hero.setCurWeapon(item);
                                             }
                                             else{
                                                 hero.getWeapons().add(market.getWeaponry().weapons.get(id));
@@ -200,7 +205,11 @@ public class LegendsGame extends RpgGame{
                                         } else {
                                             if (hero.getStarting_money() < market.getFireSpell().fireSpells.get(id).getCost()) {
                                                 System.out.println("You don't have the balance to buy this item");
-                                            } else {
+                                            }
+                                            else if(hero.getSpells().contains(market.getFireSpell().fireSpells.get(id))){
+                                                System.out.println("You already own this item");
+                                            }
+                                            else {
                                                 hero.getSpells().add(market.getFireSpell().fireSpells.get(id));
                                                 hero.setStarting_money(hero.getStarting_money() - market.getFireSpell().fireSpells.get(id).getCost());
                                                 break;
@@ -221,7 +230,11 @@ public class LegendsGame extends RpgGame{
                                         } else {
                                             if (hero.getStarting_money() < market.getIceSpell().iceSpells.get(id).getCost()) {
                                                 System.out.println("You don't have the balance to buy this item");
-                                            } else {
+                                            }
+                                            else if(hero.getSpells().contains(market.getIceSpell().iceSpells.get(id))){
+                                                System.out.println("You already own this item");
+                                            }
+                                            else {
                                                 hero.getSpells().add(market.getIceSpell().iceSpells.get(id));
                                                 hero.setStarting_money(hero.getStarting_money() - market.getIceSpell().iceSpells.get(id).getCost());
                                                 break;
@@ -242,7 +255,11 @@ public class LegendsGame extends RpgGame{
                                         } else {
                                             if (hero.getStarting_money() < market.getLightningSpell().lightningSpells.get(id).getCost()) {
                                                 System.out.println("You don't have the balance to buy this item");
-                                            } else {
+                                            }
+                                            else if(hero.getSpells().contains(market.getLightningSpell().lightningSpells.get(id))){
+                                                System.out.println("You already own this item");
+                                            }
+                                            else {
                                                 hero.getSpells().add(market.getLightningSpell().lightningSpells.get(id));
                                                 hero.setStarting_money(hero.getStarting_money() - market.getLightningSpell().lightningSpells.get(id).getCost());
                                                 break;
@@ -334,6 +351,7 @@ public class LegendsGame extends RpgGame{
             }
         }
     }
+
 
     @Override
     public void startGame() {
@@ -441,13 +459,146 @@ public class LegendsGame extends RpgGame{
             else if(!board.grid[board.getI()][board.getJ()].getSymbol().contains("I") && GameFunctions.getRandomBoolean((float)0.17)){
                 System.out.println("\u001B[41m You have encountered the monsters!! \u001b[0m");
                 this.getMonsters(player);
+                Display.displayHeroes(player.getHeroes());
+                Display.displayMonsters(this.getCurMonsters());
                 for(int i=0;i<player.getnHero();i++){
-                    Fight fight1 = new Fight();
+                    System.out.println(player.getHeroes().get(i).getName() + " vs " + this.getCurMonsters().get(i).getName());
+                    Fight fight = new Fight();
+                    while(true) {
+                        int fchoice = GameFunctions.safeScanIntWithLimit(new Scanner(System.in), "What do you want to do?\n0. Quit\n1. Attack\n2. Cast a spell\n3. Use Potion\n4. Equip/Unequip an item\n", 1, 4);
+                        if (fchoice == 0) {
+                            System.out.println("Thanks for playing");
+                            return;
+                        }
+                        else if(fchoice == 1){
+                            if(GameFunctions.getRandomBoolean((float)(this.getCurMonsters().get(i).getDodge_chance() * 0.01))){
+                                System.out.println("The monster has dodged the attack");
+                            }
+                            else{
+                                int dmg;
+                                if(player.getHeroes().get(i).getWeapons().size() > 0){
+                                    dmg = (int) ((player.getHeroes().get(i).getStrength() + player.getHeroes().get(i).getCurWeapon().getDamage()) * 0.05);
+                                }
+                                else{
+                                    dmg = (int) (player.getHeroes().get(i).getStrength() * 0.05);
+                                }
+                                this.getCurMonsters().get(i).setHp(this.getCurMonsters().get(i).getHp() - dmg);
+                                System.out.println(player.getHeroes().get(i).getName() + " has dealt " + dmg + " damage");
+                                Display.displayMonsters(this.getCurMonsters());
+                                if(this.getCurMonsters().get(i).getHp() <= 0){
+                                    System.out.println(player.getHeroes().get(i).getName() + " Won!");
+                                    player.getHeroes().get(i).setStarting_money(player.getHeroes().get(i).getStarting_money() + this.getCurMonsters().get(i).getLevel() * 100);
+                                    player.getHeroes().get(i).setStarting_exp(player.getHeroes().get(i).getStarting_exp() + 2);
+                                    this.exp += 2;
+                                    this.getCurMonsters().remove(this.getCurMonsters().get(i));
+                                    break;
+                                }
+                            }
+                        }
+                        else if(fchoice == 2){
+                            if(player.getHeroes().get(i).getSpells().size() == 0){
+                                System.out.println("You don't have any spells to cast");
+                                continue;
+                            }
+                            else{
+                                player.getHeroes().get(i).showSpells();
+                                int id = GameFunctions.safeScanIntWithLimit(new Scanner(System.in), "Please enter the id of the spell you want to cast\n 0. Quit\n", 0, player.getHeroes().get(i).getSpells().size());
+                                if(id == 0){
+                                    System.out.println("Thanks for playing");
+                                    return;
+                                }
+                                else if(player.getHeroes().get(i).getSpells().get(id-1).getMana_cost() > player.getHeroes().get(i).getMana()){
+                                    System.out.println("You don't have the required mana to cast this spell");
+                                    continue;
+                                }
+                                else {
+                                    int dmg = (int) (player.getHeroes().get(i).getSpells().get(id - 1).getDamage() * (1 + (player.getHeroes().get(i).getDexterity() / 10000)));
+                                    this.getCurMonsters().get(i).setHp(this.getCurMonsters().get(i).getHp() - dmg);
+                                    player.getHeroes().get(i).setMana(player.getHeroes().get(i).getMana() - player.getHeroes().get(i).getSpells().get(id-1).getMana_cost());
+                                    System.out.println(player.getHeroes().get(i).getName() + " has dealt " + dmg + " damage");
+                                    if(market.getFireSpell().fireSpells.contains(player.getHeroes().get(i).getSpells().get(id-1))){
+                                        this.getCurMonsters().get(i).setDefense(this.getCurMonsters().get(i).getDefense() - dmg);
+                                    }
+                                    else if(market.getIceSpell().iceSpells.contains(player.getHeroes().get(i).getSpells().get(id-1))){
+                                        this.getCurMonsters().get(i).setDamage(this.getCurMonsters().get(i).getDamage() - dmg);
+                                    }
+                                    else
+                                        this.getCurMonsters().get(i).setDodge_chance(this.getCurMonsters().get(i).getDodge_chance() - (int)(dmg * 0.05));
+                                    Display.displayMonsters(this.getCurMonsters());
+                                    if (this.getCurMonsters().get(i).getHp() <= 0) {
+                                        System.out.println(player.getHeroes().get(i).getName() + " Won!");
+                                        player.getHeroes().get(i).setStarting_money(player.getHeroes().get(i).getStarting_money() + this.getCurMonsters().get(i).getLevel() * 100);
+                                        player.getHeroes().get(i).setStarting_exp(player.getHeroes().get(i).getStarting_exp() + 2);
+                                        this.exp += 2;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                        else if(fchoice == 3){
+                            if(player.getHeroes().get(i).getPotions().size() == 0){
+                                System.out.println("You don't have any potions");
+                                continue;
+                            }
+                            else{
+                                player.getHeroes().get(i).showPotions();
+                                int id = GameFunctions.safeScanIntWithLimit(new Scanner(System.in), "Please enter the id of the potion you want to use\n 0. Quit\n", 0, player.getHeroes().get(i).getPotions().size());
+                                if(id == 0){
+                                    System.out.println("Thanks for playing");
+                                    return;
+                                }
+                                else{
+                                    String[] words = player.getHeroes().get(i).getPotions().get(id-1).getAtt_affected().split("/");
+                                    for(String word: words){
+                                        player.getHeroes().get(i).usePotion(words, player.getHeroes().get(i).getPotions().get(id-1).getAtt_increase());
+                                    }
+                                }
+                            }
+                        }
+                        else{
+                            if(GameFunctions.safeScanIntWithLimit(new Scanner(System.in), "Would you like to equip/unequip a weapon?\n1. Yes\n2. No\n", 1, 2) == 1){
+                                if(player.getHeroes().get(i).getWeapons().size() == 0){
+                                    System.out.println("You don't own any weapon");
+                                    continue;
+                                }
+                                player.getHeroes().get(i).showWeapons();
+                                int id = GameFunctions.safeScanIntWithLimit(new Scanner(System.in), "Enter the id of the weapon you want to equip", 1, player.getHeroes().get(i).getWeapons().size());
+                                for(Weaponry item: player.getHeroes().get(i).getWeapons()){
+                                    item.setEquip("No");
+                                }
+                                Weaponry item = player.getHeroes().get(i).getWeapons().get(id-1);
+                                item.setEquip("Yes");
+                                player.getHeroes().get(i).getWeapons().add(item);
+                                player.getHeroes().get(i).setIsEquipped(true);
+                                player.getHeroes().get(i).setCurWeapon(item);
+                            }
+                            if(GameFunctions.safeScanIntWithLimit(new Scanner(System.in), "Would you like to equip/unequip an armory?\n1. Yes\n2. No\n", 1, 2) == 1){
+                                if(player.getHeroes().get(i).getArmories().size() == 0){
+                                    System.out.println("You don't own any armory");
+                                    continue;
+                                }
+                                player.getHeroes().get(i).showArmories();
+                                int id = GameFunctions.safeScanIntWithLimit(new Scanner(System.in), "Enter the id of the armory you want to equip", 1, player.getHeroes().get(i).getArmories().size());
+                                for(Armory item: player.getHeroes().get(i).getArmories()){
+                                    item.setEquip("No");
+                                }
+                                Armory item = player.getHeroes().get(i).getArmories().get(id-1);
+                                item.setEquip("Yes");
+                                player.getHeroes().get(i).getArmories().add(item);
+                                player.getHeroes().get(i).setIsEquipped(true);
+                                player.getHeroes().get(i).setCurArmory(item);
+                            }
+                        }
+                        player.getHeroes().get(i).setHp((int)(player.getHeroes().get(i).getHp() * (1.1)));
+                        player.getHeroes().get(i).setMana((int)(player.getHeroes().get(i).getMana() * (1.1)));
+                        Display.displayHeroes(player.getHeroes());
+                    }
                 }
-                for(Monsters mon: this.getCurMonsters()){
-                    System.out.println(mon.getName());
-                }
-                System.out.println(this.getCurMonsters());
+//                for(Monsters mon: this.getCurMonsters()){
+//                    System.out.println(mon.getName());
+//                }
+//                System.out.println(this.getCurMonsters());
+//                int monDmg =
             }
 
 //            break;
