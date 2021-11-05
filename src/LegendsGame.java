@@ -203,7 +203,6 @@ public class LegendsGame extends RpgGame{
                                             } else {
                                                 hero.getSpells().add(market.getFireSpell().fireSpells.get(id));
                                                 hero.setStarting_money(hero.getStarting_money() - market.getFireSpell().fireSpells.get(id).getCost());
-
                                                 break;
                                             }
                                         }
@@ -272,10 +271,12 @@ public class LegendsGame extends RpgGame{
                             }
                             else {
                                 hero.showArmories();
-                                int id = GameFunctions.safeScanIntWithLimit(new Scanner(System.in), "Please enter the id of item you want to sell\n", 1, hero.getArmories().size());
-                                id = id - 1;
-                                hero.setStarting_money(hero.getStarting_money() + (hero.getArmories().get(id).getCost() / 2));
-                                hero.getArmories().remove(id);
+                                int id = GameFunctions.safeScanIntWithLimit(new Scanner(System.in), "Please enter the id of item you want to sell\n0. Exit\n", 0, hero.getArmories().size());
+                                if(id != 0) {
+                                    id = id - 1;
+                                    hero.setStarting_money(hero.getStarting_money() + (hero.getArmories().get(id).getCost() / 2));
+                                    hero.getArmories().remove(id);
+                                }
                             }
                         }
                         else if(mchoice == 2){
@@ -284,10 +285,12 @@ public class LegendsGame extends RpgGame{
                             }
                             else {
                                 hero.showWeapons();
-                                int id = GameFunctions.safeScanIntWithLimit(new Scanner(System.in), "Please enter the id of item you want to sell\n", 1, hero.getWeapons().size());
-                                id = id - 1;
-                                hero.setStarting_money(hero.getStarting_money() + (hero.getWeapons().get(id).getCost() / 2));
-                                hero.getWeapons().remove(id);
+                                int id = GameFunctions.safeScanIntWithLimit(new Scanner(System.in), "Please enter the id of item you want to sell\n0. Exit\n", 0, hero.getWeapons().size());
+                                if(id != 0) {
+                                    id = id - 1;
+                                    hero.setStarting_money(hero.getStarting_money() + (hero.getWeapons().get(id).getCost() / 2));
+                                    hero.getWeapons().remove(id);
+                                }
                             }
                         }
                         else if(mchoice == 3){
@@ -296,10 +299,26 @@ public class LegendsGame extends RpgGame{
                             }
                             else {
                                 hero.showPotions();
-                                int id = GameFunctions.safeScanIntWithLimit(new Scanner(System.in), "Please enter the id of item you want to sell\n", 1, hero.getPotions().size());
-                                id = id - 1;
-                                hero.setStarting_money(hero.getStarting_money() + (hero.getPotions().get(id).getCost() / 2));
-                                hero.getPotions().remove(id);
+                                int id = GameFunctions.safeScanIntWithLimit(new Scanner(System.in), "Please enter the id of item you want to sell\n0. Exit\n", 0, hero.getPotions().size());
+                                if(id != 0) {
+                                    id = id - 1;
+                                    hero.setStarting_money(hero.getStarting_money() + (hero.getPotions().get(id).getCost() / 2));
+                                    hero.getPotions().remove(id);
+                                }
+                            }
+                        }
+                        else if(mchoice == 4){
+                            if(hero.getSpells().size() == 0){
+                                System.out.println("You don't own any spells to sell");
+                            }
+                            else {
+                                hero.showSpells();
+                                int id = GameFunctions.safeScanIntWithLimit(new Scanner(System.in), "Please enter the id of item you want to sell\n0. Exit\n", 0, hero.getSpells().size());
+                                if(id != 0) {
+                                    id = id - 1;
+                                    hero.setStarting_money(hero.getStarting_money() + (hero.getSpells().get(id).getCost() / 2));
+                                    hero.getSpells().remove(id);
+                                }
                             }
                         }
                         System.out.println("\u001B[36m " + hero.getName() + " Inventory \u001b[0m");
