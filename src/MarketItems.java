@@ -4,7 +4,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class MarketItems {
+public abstract class MarketItems{
     protected List<Armory> armories;
     protected List<Weaponry> weapons;
     protected List<Potions> potions;

@@ -1,0 +1,7 @@
+Comments
+add logic for player revival: if all of them lose. any one lose also
+separate out code logic
+while, for loop interchanging check??
+remove fight class or see if you can use it
+use isCastable
+correct spell casting

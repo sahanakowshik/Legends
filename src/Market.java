@@ -1,14 +1,14 @@
 import java.util.Scanner;
 
-public class Market {
+public class Market implements MarketInterface{
     // builder pattern
     // facade pattern
     private MarketItems armory;
     private MarketItems weaponry;
-    private MarketItems potion;
-    private MarketItems fireSpell;
-    private MarketItems iceSpell;
-    private MarketItems lightningSpell;
+    private Potions potion;
+    private Spell fireSpell;
+    private Spell iceSpell;
+    private Spell lightningSpell;
 
     public Market(){
         armory = new Armory();
@@ -27,19 +27,19 @@ public class Market {
         return weaponry;
     }
 
-    public MarketItems getPotion() {
+    public Potions getPotion() {
         return potion;
     }
 
-    public MarketItems getFireSpell() {
+    public Spell getFireSpell() {
         return fireSpell;
     }
 
-    public MarketItems getIceSpell() {
+    public Spell getIceSpell() {
         return iceSpell;
     }
 
-    public MarketItems getLightningSpell() {
+    public Spell getLightningSpell() {
         return lightningSpell;
     }
 
@@ -103,6 +103,8 @@ public class Market {
         this.createPotions();
         this.createSpells();
     }
+
+
 
     public void buySell(LegendsPlayer player){
         System.out.println("\u001B[44m You have entered the market \u001B[0m");
