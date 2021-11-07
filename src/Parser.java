@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
@@ -9,7 +10,8 @@ public class Parser {
 
     public static List<String> parser(String name){
         try {
-            allLines = Files.readAllLines(Paths.get("src/Legends_Monsters_and_Heroes/" + name));
+            String file = System.getProperty("user.dir") + "/Legends_Monsters_and_Heroes/" + name;
+            allLines = Files.readAllLines(Paths.get(file), StandardCharsets.UTF_8);
         } catch (IOException e) {
             e.printStackTrace();
         }
