@@ -1,7 +1,4 @@
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public abstract class Monsters extends LegendsPlayer{
     private String name;
@@ -72,4 +69,16 @@ public abstract class Monsters extends LegendsPlayer{
 
     public abstract String getType();
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Monsters monsters = (Monsters) o;
+        return level == monsters.level && damage == monsters.damage && defense == monsters.defense && dodge_chance == monsters.dodge_chance && hp == monsters.hp && Objects.equals(name, monsters.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, level, damage, defense, dodge_chance, hp);
+    }
 }

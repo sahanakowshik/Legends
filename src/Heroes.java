@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public abstract class Heroes extends LegendsPlayer{
     private String name;
@@ -68,6 +69,26 @@ public abstract class Heroes extends LegendsPlayer{
         spells = new ArrayList<>();
         isEquipped = false;
         exp = 0;
+    }
+
+
+    public void levelUp() {
+        System.out.println(this.getName() + " Leveled up!");
+        this.setLevel(this.getLevel() + 1);
+        this.setMana((int) (this.getMana() * 1.1));
+        if (Objects.equals(this.getType(), "Warrior")) {
+            this.setStrength((int) (this.getStrength() * 1.1));
+            this.setAgility((int) (this.getAgility() * 1.1));
+            this.setDexterity((int) (this.getDexterity() * 1.05));
+        } else if (Objects.equals(this.getType(), "Sorcerer")) {
+            this.setStrength((int) (this.getStrength() * 1.05));
+            this.setAgility((int) (this.getAgility() * 1.1));
+            this.setDexterity((int) (this.getDexterity() * 1.1));
+        } else {
+            this.setStrength((int) (this.getStrength() * 1.1));
+            this.setAgility((int) (this.getAgility() * 1.05));
+            this.setDexterity((int) (this.getDexterity() * 1.1));
+        }
     }
 
     public void usePotion(String[] words, int att_inc){
