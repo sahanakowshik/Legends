@@ -4,6 +4,7 @@ import java.nio.file.Paths;
 import java.util.List;
 
 public class Warrior extends Heroes{
+    // Class to create a warrior
     private List<String> allLines;
     private int n;
 
@@ -27,6 +28,7 @@ public class Warrior extends Heroes{
 
     @Override
     public void displayList() {
+        // Displays the list of warriors
         String[] words = allLines.get(0).split("/");
         String line = String.join("   ", words);
         System.out.println("Id   " + line);

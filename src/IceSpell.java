@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class IceSpell extends Spell{
-//    public static List<String> allLines;
+    // Class to create a list of ice spells
 
     public static List<String> getAllLines() {
         return allLines;
@@ -22,6 +22,7 @@ public class IceSpell extends Spell{
 
     @Override
     public void createList() {
+        // Creates a list of ice spells
         List<String> list = this.getList();
         iceSpells = new ArrayList<>();
         for(String str: list){
@@ -33,13 +34,12 @@ public class IceSpell extends Spell{
             spell.setReq_level(Integer.parseInt(words[3]));
             spell.setDamage(Integer.parseInt(words[4]));
             spell.setMana_cost(Integer.parseInt(words[5]));
-//            spell.setEquip("No");
             iceSpells.add(spell);
         }
     }
 
-    //    @Override
     public List<String> getList() {
+        // Returns a list of ice spells
         allLines = Parser.parser("IceSpells.txt");
         List<String> list = new ArrayList<>();
         for (int i=1;i<allLines.size();i++) {

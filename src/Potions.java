@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Potions extends MarketItems implements isBuyableSellable, isDrinkable{
+    // Class to store attributes for thhe potions
     public static List<String> allLines;
     private int id;
     private String Name;
@@ -12,7 +13,6 @@ public class Potions extends MarketItems implements isBuyableSellable, isDrinkab
     private int req_level;
     private int att_increase;
     private String att_affected;
-//    private String equip;
 
     public static List<String> getAllLines() {
         return allLines;
@@ -66,15 +66,6 @@ public class Potions extends MarketItems implements isBuyableSellable, isDrinkab
         this.att_affected = att_affected;
     }
 
-//    public String getEquip() {
-//        return equip;
-//    }
-//
-//    public void setEquip(String equip) {
-//        this.equip = equip;
-//    }
-
-//    @Override
     public String getType() {
         return "Potions";
     }
@@ -86,6 +77,7 @@ public class Potions extends MarketItems implements isBuyableSellable, isDrinkab
 
     @Override
     public void createList(){
+        // Creates a list of potions
         List<String> list = this.getList();
         potions = new ArrayList<>();
         for(String str: list){
@@ -102,6 +94,7 @@ public class Potions extends MarketItems implements isBuyableSellable, isDrinkab
     }
 
     public List<String> getList() {
+        // Rturns a list of potions
         allLines = Parser.parser("Potions.txt");
         List<String> list = new ArrayList<>();
         for (int i=1;i<allLines.size();i++) {

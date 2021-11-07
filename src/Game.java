@@ -1,4 +1,5 @@
 public interface Game {
+    // Game interface
 
     public String getName();
 

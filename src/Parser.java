@@ -4,6 +4,7 @@ import java.nio.file.Paths;
 import java.util.List;
 
 public class Parser {
+    // Class to parse the configuration files
     private static List<String> allLines;
 
     public static List<String> parser(String name){

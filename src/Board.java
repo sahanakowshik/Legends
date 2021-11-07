@@ -1,4 +1,5 @@
 public abstract class Board {
+    // Class to create a board/map
     public Cell[][] grid;
 
     public int getBoardSize() {

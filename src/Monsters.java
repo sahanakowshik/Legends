@@ -1,6 +1,7 @@
 import java.util.*;
 
 public abstract class Monsters extends LegendsPlayer{
+    // Class to create monsters
     private String name;
     private int level;
     private int damage;

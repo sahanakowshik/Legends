@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class Armory extends MarketItems implements isUsable, isBuyableSellable{
+    // Class to create a armory
     public static List<String> allLines;
     private int id;
     private String Name;
@@ -90,6 +91,7 @@ public class Armory extends MarketItems implements isUsable, isBuyableSellable{
 
     @Override
     public void createList() {
+        // Creates a list of armories
         List<String> list = this.getList();
         armories = new ArrayList<>();
         for(String str: list){
@@ -105,8 +107,8 @@ public class Armory extends MarketItems implements isUsable, isBuyableSellable{
         }
     }
 
-    //    @Override
     public List<String> getList() {
+        // Returns the list of armories
         allLines = Parser.parser("Armory.txt");
         List<String> list = new ArrayList<>();
         for (int i=1;i<allLines.size();i++) {

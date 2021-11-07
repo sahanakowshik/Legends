@@ -1,4 +1,5 @@
 public abstract class Cell{
+    // Class to hold attributes of a single cell in the map
     private boolean isSet;
     private LegendsPlayer player;
 

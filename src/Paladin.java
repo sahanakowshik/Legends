@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
 public class Paladin extends Heroes{
+    // Class to create a paladin
     private List<String> allLines;
     private int n;
 
@@ -32,6 +33,7 @@ public class Paladin extends Heroes{
 
     @Override
     public void displayList() {
+        // Displays the list of paladins
         String[] words = allLines.get(0).split("/");
         String line = String.join("   ", words);
         System.out.println("Id   " +line);

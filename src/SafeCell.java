@@ -1,4 +1,6 @@
 public class SafeCell extends Cell implements isAccessible {
+    // Holds attributes to create a safe/common cell
+
     private String symbol = "     ";
     @Override
     public String getSymbol() {

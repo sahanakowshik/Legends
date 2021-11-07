@@ -1,8 +1,8 @@
 import java.util.Scanner;
 
 public class Market implements MarketInterface{
-    // builder pattern
-    // facade pattern
+    // Class to create an instance of the market
+    // Implements facade pattern to get items from inventory
     private MarketItems armory;
     private MarketItems weaponry;
     private Potions potion;
@@ -43,6 +43,7 @@ public class Market implements MarketInterface{
         return lightningSpell;
     }
 
+    // Creating list of market items
     public void createArmory(){
         armory.createList();
     }
@@ -67,6 +68,7 @@ public class Market implements MarketInterface{
         lightningSpell.createList();
     }
 
+    // Displaying market items
     public void displayArmory(){
         armory.display();
     }
@@ -98,6 +100,7 @@ public class Market implements MarketInterface{
     }
 
     public void createMarketList(){
+        // Creates a market with all the items
         this.createArmory();
         this.createWeapons();
         this.createPotions();
@@ -107,6 +110,7 @@ public class Market implements MarketInterface{
 
 
     public void buySell(LegendsPlayer player){
+        // Implement buying and selling logic
         System.out.println("\u001B[44m You have entered the market \u001B[0m");
         for(Heroes hero: player.getHeroes()){
             int heroChoice = GameFunctions.safeScanIntWithLimit(new Scanner(System.in), hero.getName() + " would you like to enter the store\n1. Yes\n2. No\n", 1, 2);
@@ -118,6 +122,7 @@ public class Market implements MarketInterface{
                     if (val == 1) {
                         int mchoice = GameFunctions.safeScanIntWithLimit(new Scanner(System.in), "What would you like to buy?\n0. Exit\n1. Armory\n2. Weapon\n3. Potion\n4. Spell\n", 0, 4);
                         if (mchoice == 1) {
+                            // Buying an armory
                             do {
                                 this.displayArmory();
                                 int id = GameFunctions.safeScanIntWithLimit(new Scanner(System.in), "Please enter the Id of the item you want to buy\n0. Exit\n", 0, this.getArmory().armories.size());
@@ -133,8 +138,9 @@ public class Market implements MarketInterface{
                                             System.out.println("You already own this item");
                                         }
                                         else {
-                                            hero.setStarting_money(hero.getStarting_money() - this.getArmory().armories.get(id).getCost());
+                                            hero.setStarting_money(hero.getStarting_money() - this.getArmory().armories.get(id).getCost()); // Updating the money
                                             if(GameFunctions.safeScanIntWithLimit(new Scanner(System.in), "Would you like to equip this item?\n1. Yes\n2. No\n", 1, 2) == 1){
+                                                // Equipping the item
                                                 for(int i=0;i<hero.getArmories().size();i++){
                                                     hero.getArmories().get(i).setEquip("No");
                                                 }
@@ -155,9 +161,10 @@ public class Market implements MarketInterface{
                                     break;
                             }while (true);
                             for(int i=0;i<hero.getArmories().size();i++){
-                                hero.getArmories().get(i).setId(i+1);
+                                hero.getArmories().get(i).setId(i+1); // Resetting the ids of armories
                             }
                         } else if (mchoice == 2) {
+                            // Buying a weapon
                             do {
                                 this.displayWeaponry();
                                 int id = GameFunctions.safeScanIntWithLimit(new Scanner(System.in), "Please enter the Id of the item you want to buy\n0. Exit\n", 0, this.getWeaponry().weapons.size());
@@ -175,6 +182,7 @@ public class Market implements MarketInterface{
                                         else {
                                             hero.setStarting_money(hero.getStarting_money() - this.getWeaponry().weapons.get(id).getCost());
                                             if(GameFunctions.safeScanIntWithLimit(new Scanner(System.in), "Would you like to equip this item?\n1. Yes\n2. No\n", 1, 2) == 1){
+                                                // Equipping the weapon
                                                 for(Weaponry item: hero.getWeapons()){
                                                     item.setEquip("No");
                                                 }
@@ -195,9 +203,10 @@ public class Market implements MarketInterface{
                                     break;
                             }while (true);
                             for(int i=0;i<hero.getWeapons().size();i++){
-                                hero.getWeapons().get(i).setId(i+1);
+                                hero.getWeapons().get(i).setId(i+1); // Resetting the ids of the weapons
                             }
                         } else if (mchoice == 3) {
+                            // Buying a potion
                             do {
                                 this.displayPotions();
                                 int id = GameFunctions.safeScanIntWithLimit(new Scanner(System.in), "Please enter the Id of the item you want to buy\n0. Exit\n", 0, this.getPotion().potions.size());
@@ -223,11 +232,13 @@ public class Market implements MarketInterface{
                                     break;
                             }while (true);
                             for(int i=0;i<hero.getPotions().size();i++){
-                                hero.getPotions().get(i).setId(i+1);
+                                hero.getPotions().get(i).setId(i+1); // Resetting the ids of the potions
                             }
                         } else if (mchoice == 4) {
+                            // Buying a spell
                             int sp = GameFunctions.safeScanIntWithLimit(new Scanner(System.in), "Which spell would you like to buy?\n0. Exit\n1. Fire Spell\n2. Ice Spell\n3. Lightning Spell\n", 0, 3);
                             if (sp == 1) {
+                                // Fire spell
                                 do {
                                     this.displayFireSpells();
                                     int id = GameFunctions.safeScanIntWithLimit(new Scanner(System.in), "Please enter the Id of the item you want to buy\n0. Exit\n", 0, this.getFireSpell().fireSpells.size());
@@ -253,6 +264,7 @@ public class Market implements MarketInterface{
                                         break;
                                 }while (true);
                             } else if (sp == 2) {
+                                // Ice spell
                                 do {
                                     this.displayIceSpells();
                                     int id = GameFunctions.safeScanIntWithLimit(new Scanner(System.in), "Please enter the Id of the item you want to buy\n0. Exit\n", 0, this.getIceSpell().iceSpells.size());
@@ -278,6 +290,7 @@ public class Market implements MarketInterface{
                                         break;
                                 }while (true);
                             } else if (sp == 3) {
+                                // Lightning spell
                                 do {
                                     this.displayLightningSpells();
                                     int id = GameFunctions.safeScanIntWithLimit(new Scanner(System.in), "Please enter the Id of the item you want to buy\n0. Exit\n", 0, this.getLightningSpell().lightningSpells.size());
@@ -304,18 +317,20 @@ public class Market implements MarketInterface{
                                 }while (true);
                             }
                             for(int i=0;i<hero.getSpells().size();i++){
-                                hero.getSpells().get(i).setId(i+1);
+                                hero.getSpells().get(i).setId(i+1); // Resetting the ids of the spells
                             }
                         }
                         System.out.println("\u001B[36m " + hero.getName() + " Inventory \u001b[0m");
-                        hero.showInventory();
+                        hero.showInventory(); // Shows the inventory of the hero
                         System.out.println(hero.getName() + "Info");
-                        Display.displayHeroes(player.getHeroes());
+                        Display.displayHeroes(player.getHeroes()); // Displays the hero info
 
                     } else if (val == 2) {
+                        // Selling an item
                         hero.showInventory();
                         int mchoice = GameFunctions.safeScanIntWithLimit(new Scanner(System.in), "What would you like to sell?\n0. Exit\n1. Armory\n2. Weapon\n3. Potion\n4. Spell\n", 0, 4);
                         if(mchoice == 1){
+                            // Selling an armory
                             if(hero.getArmories().size() == 0){
                                 System.out.println("You don't own any armories to sell");
                             }
@@ -330,6 +345,7 @@ public class Market implements MarketInterface{
                             }
                         }
                         else if(mchoice == 2){
+                            // Selling a weapon
                             if(hero.getWeapons().size() == 0){
                                 System.out.println("You don't own any weapons to sell");
                             }
@@ -344,6 +360,7 @@ public class Market implements MarketInterface{
                             }
                         }
                         else if(mchoice == 3){
+                            // Selling a potion
                             if(hero.getPotions().size() == 0){
                                 System.out.println("You don't own any potions to sell");
                             }
@@ -358,6 +375,7 @@ public class Market implements MarketInterface{
                             }
                         }
                         else if(mchoice == 4){
+                            // Selling a spell
                             if(hero.getSpells().size() == 0){
                                 System.out.println("You don't own any spells to sell");
                             }

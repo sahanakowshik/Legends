@@ -1,0 +1,3 @@
+A player can hold one armor and one weapon at a time
+If all monsters win the fight, the players get revived with half their health
+Monster appears with probability 1/6 = 0.17

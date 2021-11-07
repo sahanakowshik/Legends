@@ -1,4 +1,5 @@
 public interface MarketInterface {
+    // Interface used to implement facade pattern
     void createArmory();
     void createWeapons();
     void createPotions();

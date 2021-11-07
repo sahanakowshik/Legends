@@ -3,15 +3,17 @@ import java.util.*;
 public class LegendsGame extends RpgGame{
     public Map<Integer,ArrayList<Monsters>> monsters=new HashMap<Integer,ArrayList<Monsters>>();
     private List<Monsters> curMonsters; // Stores monsters in each fight
-    private LegendsPlayer player;
-    private Market market;
+    private LegendsPlayer player; // Creates a player object
+    private Market market; // Creates a market object
     ASCIIArtGenerator artGen = new ASCIIArtGenerator();
+    // hero and monster flags are used to check for hero reviving setup
     private int heroFlag;
     private int monsterFlag;
     private int level;
-
+    private int hcount;
 
     public List<Monsters> getCurMonsters() {
+        // Returns a list of monsters
         return curMonsters;
     }
 
@@ -74,30 +76,36 @@ public class LegendsGame extends RpgGame{
     }
 
     public void fight(int monIndex){
+        // Logic to fight the monster
         for (int i = 0; i < player.getnHero(); i++) {
             Heroes curHero = player.getHeroes().get(i);
             Monsters curMonster = this.getCurMonsters().get(monIndex);
-            System.out.println(curHero.getName() + " vs " + curMonster.getName());
+            System.out.println("\u001B[32m " + curHero.getName() + " vs " + curMonster.getName() + " \u001b[0m");
             int fchoice = GameFunctions.safeScanIntWithLimit(new Scanner(System.in), "What do you want to do?\n0. Quit\n1. Attack\n2. Cast a spell\n3. Use Potion\n4. Equip/Unequip an item\n", 1, 4);
             if (fchoice == 0) {
                 System.out.println("Thanks for playing");
                 return;
             } else if (fchoice == 1) {
-                if (GameFunctions.getRandomBoolean((float) (curMonster.getDodge_chance() * 0.01))) {
-                    System.out.println("The monster has dodged the attack");
+                // Attack the monster
+                if (GameFunctions.getRandomBoolean((float) (curMonster.getDodge_chance() * 0.01))) { // Checking for monster dodging the attack
+                    System.out.println("\u001B[31m The monster has dodged the attack! \u001b[0m");
+                    Music.playSound("music/mixkit-troll-warrior-laugh-409.wav");
                 } else {
                     int dmg;
+                    // Calculating the damage dealt by the hero
                     if (curHero.getWeapons().size() > 0) {
                         dmg = (int) ((curHero.getStrength() + curHero.getCurWeapon().getDamage()) * 0.05);
                     } else {
                         dmg = (int) (curHero.getStrength() * 0.05);
                     }
-                    curMonster.setHp(Math.max((curMonster.getHp() - dmg), 0));
-                    System.out.println(curHero.getName() + " has dealt " + dmg + " damage");
-//                                Display.displayMonsters(this.getCurMonsters());
+                    curMonster.setHp(Math.max((curMonster.getHp() - dmg), 0)); // Reduces the health of the monster
+                    System.out.println("\u001B[33m" + curHero.getName() + " has dealt " + dmg + " damage! \u001b[0m");
+                    Music.playSound("music/mixkit-quick-ninja-strike-2146.wav");
                     if (curMonster.getHp() <= 0) {
+                        // Checking if player won the round
                         Display.displayMonsters(this.getCurMonsters());
-                        System.out.println(curHero.getName() + " Won!");
+                        System.out.println("\u001B[32m" + curHero.getName() + " Won! \u001b[0m");
+                        Music.playSound("music/mixkit-achievement-bell-600.wav");
                         level = Math.max(level, curMonster.getLevel());
                         heroFlag = 1;
                         curMonster.setHp(curMonster.getLevel() * 100);
@@ -110,35 +118,43 @@ public class LegendsGame extends RpgGame{
                 }
                 monIndex = (monIndex+1) % this.getCurMonsters().size();
             } else if (fchoice == 2) {
+                // Cast a spell
                 if (curHero.getSpells().size() == 0) {
-                    System.out.println("You don't have any spells to cast");
+                    System.out.println("\u001B[31m You don't have any spells to cast \u001b[0m");
                     i--;
                     continue;
                 } else {
-                    curHero.showSpells();
+                    curHero.showSpells(); // shows the spells available with the current hero
                     int id = GameFunctions.safeScanIntWithLimit(new Scanner(System.in), "Please enter the id of the spell you want to cast\n 0. Quit\n", 0, curHero.getSpells().size());
                     if (id == 0) {
                         System.out.println("Thanks for playing");
                         return;
-                    } else if (curHero.getSpells().get(id - 1).getMana_cost() > curHero.getMana()) {
-                        System.out.println("You don't have the required mana to cast this spell");
+                    } else if (curHero.getSpells().get(id - 1).getMana_cost() > curHero.getMana()) { //checking if player has the required mana to cast the spell
+                        System.out.println("\u001B[31m You don't have the required mana to cast this spell \u001b[0m");
                         i--;
                         continue;
                     } else {
-                        if (Objects.equals(curHero.getSpells().get(id - 1).getType(), "Fire Spell"))
-                            market.getFireSpell().use(curMonster, curHero, i, id, market);
-                        else if (Objects.equals(curHero.getSpells().get(id - 1).getType(), "Ice Spell"))
-                            market.getIceSpell().use(curMonster, curHero, i, id, market);
-                        else
-                            market.getLightningSpell().use(curMonster, curHero, i, id, market);
+                        if (Objects.equals(curHero.getSpells().get(id - 1).getType(), "Fire Spell")) {
+                            market.getFireSpell().use(curMonster, curHero, i, id, market); // Calls the default use method from the isCastable interface
+                            Music.playSound("music/mixkit-fireball-spell-1347.wav");
+                        }
+                        else if (Objects.equals(curHero.getSpells().get(id - 1).getType(), "Ice Spell")) {
+                            market.getIceSpell().use(curMonster, curHero, i, id, market); // Calls the default use method from the isCastable interface
+                            Music.playSound("music/mixkit-thin-icicles-spell-882.wav");
+                        }
+                        else {
+                            market.getLightningSpell().use(curMonster, curHero, i, id, market); // Calls the default use method from the isCastable interface
+                            Music.playSound("music/mixkit-light-spell-873.wav");
+                        }
                         if (curMonster.getHp() <= 0) {
+                            // Checking if player won the round
                             Display.displayMonsters(this.getCurMonsters());
-                            System.out.println(curHero.getName() + " Won!");
+                            System.out.println("\u001B[32m" + curHero.getName() + " Won! \u001b[0m");
+                            Music.playSound("music/mixkit-achievement-bell-600.wav");
                             level = Math.max(level, curMonster.getLevel());
                             heroFlag = 1;
                             curMonster.setHp(curMonster.getLevel() * 100);
                             this.getCurMonsters().remove(curMonster);
-//                                        monIndex--;
                             if(this.getCurMonsters().size() == 0)
                                 break;
                             monIndex = (monIndex) % this.getCurMonsters().size();
@@ -148,8 +164,9 @@ public class LegendsGame extends RpgGame{
                 }
                 monIndex = (monIndex+1) % this.getCurMonsters().size();
             } else if (fchoice == 3) {
+                // Use a potion
                 if (curHero.getPotions().size() == 0) {
-                    System.out.println("You don't have any potions");
+                    System.out.println("\u001B[31m You don't have any potions \u001b[0m");
                     i--;
                     continue;
                 } else {
@@ -159,14 +176,14 @@ public class LegendsGame extends RpgGame{
                         System.out.println("Thanks for playing");
                         return;
                     } else {
-                        market.getPotion().use(player, i, id);
+                        market.getPotion().use(player, i, id); // Calls the default use method from the isDrinkable interface
                         monIndex = (monIndex+1) % this.getCurMonsters().size();
                     }
                 }
             } else {
                 if (GameFunctions.safeScanIntWithLimit(new Scanner(System.in), "Would you like to equip/unequip a weapon?\n1. Yes\n2. No\n", 1, 2) == 1) {
                     if (curHero.getWeapons().size() == 0) {
-                        System.out.println("You don't own any weapon");
+                        System.out.println("\u001B[31m You don't own any weapon \u001b[0m");
                         i--;
                         continue;
                     }
@@ -177,18 +194,18 @@ public class LegendsGame extends RpgGame{
                         continue;
                     }
                     for (Weaponry item : curHero.getWeapons()) {
-                        item.setEquip("No");
+                        item.setEquip("No"); // Setting other weapons as unequipped
                     }
                     Weaponry item = curHero.getWeapons().get(id - 1);
                     item.setEquip("Yes");
                     curHero.getWeapons().add(item);
                     curHero.setIsEquipped(true);
-                    curHero.setCurWeapon(item);
+                    curHero.setCurWeapon(item); // Updating the current weapon
                     i--;
                 }
                 if (GameFunctions.safeScanIntWithLimit(new Scanner(System.in), "Would you like to equip/unequip an armory?\n1. Yes\n2. No\n", 1, 2) == 1) {
                     if (curHero.getArmories().size() == 0) {
-                        System.out.println("You don't own any armory");
+                        System.out.println("\u001B[31m You don't own any armory \u001b[0m");
                         i--;
                         continue;
                     }
@@ -199,37 +216,44 @@ public class LegendsGame extends RpgGame{
                         continue;
                     }
                     for (Armory item : curHero.getArmories()) {
-                        item.setEquip("No");
+                        item.setEquip("No"); // Setting other armories as unequipped
                     }
                     Armory item = curHero.getArmories().get(id - 1);
                     item.setEquip("Yes");
                     curHero.getArmories().add(item);
                     curHero.setIsEquipped(true);
-                    curHero.setCurArmory(item);
+                    curHero.setCurArmory(item); // Updating the current armor
                     i--;
                 }
             }
-            curHero.setHp((int) (curHero.getHp() * (1.1)));
-            curHero.setMana((int) (curHero.getMana() * (1.1)));
-            Display.displayHeroes(player.getHeroes());
-            Display.displayMonsters(this.getCurMonsters());
 
-            int monDmg = (int) (curMonster.getDamage() * 0.05);
-            if (GameFunctions.getRandomBoolean((float) (curHero.getAgility() * 0.001))) {
-                System.out.println("You have dodged the attack!");
+            int monDmg = (int) (curMonster.getDamage() * 0.05); // Calculating damage dealt by monster
+            if (GameFunctions.getRandomBoolean((float) (curHero.getAgility() * 0.001))) { // Checking if hero dodged the attack
+                System.out.println("\u001B[32m You have dodged the attack! \u001b[0m");
                 continue;
             } else {
                 if(curHero.getArmories().size() == 0)
-                    curHero.setHp(Math.max((curHero.getHp() - monDmg),0));
+                    curHero.setHp(Math.max((curHero.getHp() - monDmg),0)); // Updating hp of hero without armory
                 else
-                    curHero.setHp(Math.max(Math.min((curHero.getHp() + curHero.getCurArmory().getDamage_reduction() - monDmg), curHero.getHp()),0));
-                System.out.println(curMonster.getName() + " has dealt " + monDmg + "damage!");
+                    curHero.setHp(Math.max(Math.min((curHero.getHp() + curHero.getCurArmory().getDamage_reduction() - monDmg), curHero.getHp()),0)); // Updating hp of hero without armory
+                System.out.println("\u001B[31m" + curMonster.getName() + " has dealt " + monDmg + "damage! \u001b[0m");
+                Music.playSound("music/mixkit-quick-ninja-strike-2146.wav");
                 if (curHero.getHp() <= 0) {
-                    System.out.println("Monster won!!");
+                    // Checking if monster won the round
+                    System.out.println("\u001B[31m Monster won! \u001b[0m");
+                    Music.playSound("music/mixkit-8-bit-lose-2031.wav");
                     monsterFlag = 1;
-//                    n++;
+                    hcount++;
                 }
             }
+
+            // Updating mana and health after each round
+            curHero.setHp((int) (curHero.getHp() * (1.1)));
+            curHero.setMana((int) (curHero.getMana() * (1.1)));
+            System.out.println("Heroes");
+            Display.displayHeroes(player.getHeroes());
+            System.out.println("Monsters");
+            Display.displayMonsters(this.getCurMonsters());
         }
     }
 
@@ -237,6 +261,7 @@ public class LegendsGame extends RpgGame{
     public void startGame() throws Exception {
         // The game starts
         artGen.printTextArt("Welcome", ASCIIArtGenerator.ART_SIZE_MEDIUM);
+        Music.playSound("music/mixkit-game-level-completed-2059.wav");
         System.out.println("Welcome to the game of Legends: Monsters and Heroes!!");
         player = new LegendsPlayer();
         player.setName(GameFunctions.safeScanString(new Scanner(System.in), "Please enter your name:\n"));
@@ -254,80 +279,85 @@ public class LegendsGame extends RpgGame{
         market = new Market();
         market.createMarketList(); // A market is created
         Display.displayBoard(board);
-        Display.displayLegend();
+        Display.displayLegend(player.getSymbol());
 
         while(true){
             String[] data = {"w", "a", "s", "d", "i", "e", "m", "q"};
             String choice;
             label:
             do {
-                choice = GameFunctions.safeScanString(new Scanner(System.in), "It is your turn to move:\nMove(W/A/S/D)\nCheck player Info(I)\nCheck weapons Inventory (E)\nShow map (M)\nQuit (Q)\n");
+                choice = GameFunctions.safeScanString(new Scanner(System.in), "\u001B[32m It is your turn to move: \u001b[0m \nMove(W/A/S/D)\nCheck player Info(I)\nCheck weapons Inventory (E)\nShow map (M)\nQuit (Q)\n");
                 choice = choice.toLowerCase();
                 if(!Arrays.asList(data).contains(choice)) {
                     System.out.println("Please enter a valid choice....");
                 }else {
                     switch (choice) {
-                        case "w":
+                        case "w": // Move up
                             if (!board.canMove(board.getI() - 1, board.getJ())) {
                                 System.out.println("Inaccessible! Please enter a valid choice....");
                             } else {
                                 board.move(board.getI() - 1, board.getJ(), player);
                                 Display.displayBoard(board);
-                                Display.displayLegend();
-                                System.out.println("\u001B[42m You have moved \u001b[0m");
+                                Display.displayLegend(player.getSymbol());
+                                System.out.println("\u001B[42m " + player.getName() + ", You have moved \u001b[0m");
+                                Music.playSound("music/mixkit-player-jumping-in-a-video-game-2043.wav");
                                 break label;
                             }
                             break;
-                        case "s":
+                        case "s": // Move down
                             if (!board.canMove(board.getI() + 1, board.getJ())) {
                                 System.out.println("Inaccessible! Please enter a valid choice....");
                             } else {
                                 board.move(board.getI() + 1, board.getJ(), player);
                                 Display.displayBoard(board);
-                                Display.displayLegend();
-                                System.out.println("\u001B[42m You have moved \u001b[0m");
+                                Display.displayLegend(player.getSymbol());
+                                System.out.println("\u001B[42m " + player.getName() + "You have moved \u001b[0m");
+                                Music.playSound("music/mixkit-player-jumping-in-a-video-game-2043.wav");
                                 break label;
                             }
                             break;
-                        case "a":
+                        case "a": // Move left
                             if (!board.canMove(board.getI(), board.getJ() - 1)) {
                                 System.out.println("Inaccessible! Please enter a valid choice....");
                             } else {
                                 board.move(board.getI(), board.getJ() - 1, player);
                                 Display.displayBoard(board);
-                                Display.displayLegend();
-                                System.out.println("\u001B[42m You have moved \u001b[0m");
+                                Display.displayLegend(player.getSymbol());
+                                System.out.println("\u001B[42m " + player.getName() + "You have moved \u001b[0m");
+                                Music.playSound("music/mixkit-player-jumping-in-a-video-game-2043.wav");
                                 break label;
                             }
                             break;
-                        case "d":
+                        case "d": // Move right
                             if (!board.canMove(board.getI(), board.getJ() + 1)) {
                                 System.out.println("Inaccessible! Please enter a valid choice....");
                             } else {
                                 board.move(board.getI(), board.getJ() + 1, player);
                                 Display.displayBoard(board);
-                                Display.displayLegend();
-                                System.out.println("\u001B[42m You have moved \u001b[0m");
+                                Display.displayLegend(player.getSymbol());
+                                System.out.println("\u001B[42m " + player.getName() + "You have moved \u001b[0m");
+                                Music.playSound("music/mixkit-player-jumping-in-a-video-game-2043.wav");
                                 break label;
                             }
                             break;
-                        case "e":
+                        case "e": // Show inventory of all heroes
                             for (int i = 0; i < player.getnHero(); i++) {
                                 System.out.println("\u001B[36m " + player.getHeroes().get(i).getName() + " Inventory \u001b[0m");
                                 player.getHeroes().get(i).showInventory();
                                 System.out.println();
                             }
                             break;
-//                            break label;
                         case "i":
+                            // Show info of all heroes
                             Display.displayHeroes(player.getHeroes());
                             break;
-//                            break label;
                         case "m":
+                            // Display board
                             Display.displayBoard(board);
-                            Display.displayLegend();
+                            Display.displayLegend(player.getSymbol());
                             break;
                         case "q":
+                            // Quit the game
                             System.out.println("Thanks for playing");
                             return;
                     }
@@ -335,10 +365,13 @@ public class LegendsGame extends RpgGame{
             }while (true);
 
             if(board.grid[board.getI()][board.getJ()].getSymbol().contains("M")){
+                // Player enters a market
                 market.buySell(player);
             }
             else if(!board.grid[board.getI()][board.getJ()].getSymbol().contains("I") && GameFunctions.getRandomBoolean((float)0.17)){
+                // Player encounters a monster
                 System.out.println("\u001B[41m You have encountered the monsters!! \u001b[0m");
+                Music.playSound("music/mixkit-aggressive-beast-roar-13.wav");
                 this.getMonsters(player);
                 int level = 1;
                 System.out.println(this.getCurMonsters().size());
@@ -346,30 +379,34 @@ public class LegendsGame extends RpgGame{
                 Display.displayMonsters(this.getCurMonsters());
                 heroFlag = 0;
                 monsterFlag = 0;
-                int n = 0;
-                while(this.getCurMonsters().size() > 0 && n < player.getHeroes().size()) {
+                hcount = 0;
+                while(this.getCurMonsters().size() > 0 && hcount < player.getHeroes().size()) {
                     int monIndex = 0;
-                    this.fight(monIndex);
+                    this.fight(monIndex); // Fighting the monster
                 }
                 if(heroFlag == 0 && monsterFlag == 1){ // Monsters win the fight
-                    System.out.println("Monsters won the fight!");
+                    System.out.println("\u001B[41m Monsters won the fight! \u001b[0m");
+                    Music.playSound("music/mixkit-ominous-drums-227.wav");
                     for(Heroes hero : player.getHeroes()){
                         hero.setHp((hero.getLevel() * 100) / 2);
                     }
                 }
                 else if(heroFlag == 1) { // Heroes win the fight
-                    System.out.println("Heroes won the fight!");
+                    System.out.println("\u001B[42m Heroes won the fight! \u001b[0m");
+                    Music.playSound("music/mixkit-ethereal-fairy-win-sound-2019.wav");
                     for (Heroes hero : player.getHeroes()) {
                         if (hero.getHp() != 0) {
+                            // Updating money and exp for heroes that are alive
                             hero.setStarting_money(hero.getStarting_money() + level * 100);
                             hero.setStarting_exp(hero.getStarting_exp() + 2);
                             hero.setExp(hero.getExp() + 2);
                         }
                         else{
+                            // Reviving heroes with health 0
                             hero.setHp((hero.getLevel() * 100) / 2);
                         }
-                        if (hero.getExp() >= (hero.getLevel() * 10)) {
-                            hero.levelUp();
+                        if (hero.getExp() >= (hero.getLevel() * 10)) { // Checking if the hero levels up
+                            hero.levelUp(); // Levels up the hero
                             Display.displayHeroes(player.getHeroes());
                         }
                     }

@@ -1,4 +1,5 @@
 public abstract class Player {
+    // Super class to create players
 
     protected int playerId;
     protected String name;

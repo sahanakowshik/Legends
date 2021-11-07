@@ -1,7 +1,9 @@
 import java.util.List;
 
 public class Display {
+    // Helper class for display functions
     public static void displayBoard(Board board){
+        // Displays the map
         for(int i=0;i<GameConstants.boardSize;i++){
             for(int j=0;j<GameConstants.boardSize;j++){
                 System.out.print("=======");
@@ -25,6 +27,7 @@ public class Display {
     }
 
     public static void displayHeroes(List<Heroes> heroes){
+        // Displays the list of heroes
         System.out.println("Id      Name                      Level   HP   mana strength agility dexterity starting_money starting_experience  Defense");
         for(int i=0;i<heroes.size();i++){
             heroes.get(i).displayHero(i);
@@ -32,21 +35,24 @@ public class Display {
     }
 
     public static void displayMonsters(List<Monsters> monsters){
+        // Displays the list of monsters
         System.out.println("Id      Name                  Level   Hp   Damage   Defense Dodge_Chance");
         for(int i=0;i<monsters.size();i++){
             monsters.get(i).displayMonster(i);
         }
     }
 
-    public static void displayLegend(){
+    public static void displayLegend(String symbol){
+        // Displays the legend
         System.out.println("---------Legend---------");
         System.out.println("M       = Market");
         System.out.println("I       = Blocked space");
         System.out.println("<Blank> = Common space");
-        System.out.println("P       = Current player");
+        System.out.println(symbol + "       = Current player");
     }
 
     public static void displayArmory(List<Armory> armories){
+        // Displays the list of armories
         String[] words = Armory.allLines.get(0).split("/");
         String line = String.join("   ", words);
         System.out.println("Id   " + line + "   Equip");
@@ -57,6 +63,7 @@ public class Display {
     }
 
     public static void displayWeaponry(List<Weaponry> weapons){
+        // Displays the list of weapons
         String[] words = Weaponry.allLines.get(0).split("/");
         String line = String.join("   ", words);
         System.out.println("Id   " + line + "   Equip");
@@ -67,6 +74,7 @@ public class Display {
     }
 
     public static void displayPotions(List<Potions> potions){
+        // Displays the list of potions
         String[] words = Potions.allLines.get(0).split("/");
         String line = String.join("   ", words);
         System.out.println("Id   " + line);
@@ -77,6 +85,7 @@ public class Display {
     }
 
     public static void displaySpells(List<Spell> spells){
+        // Displays the list of spells
         String[] words = Spell.allLines.get(0).split("/");
         String line = String.join("   ", words);
         System.out.println("Id   " + line);

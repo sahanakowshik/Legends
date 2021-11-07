@@ -22,6 +22,7 @@ public class LightningSpell extends Spell{
 
     @Override
     public void createList() {
+        // Creates a list of lightning spells
         List<String> list = this.getList();
         lightningSpells = new ArrayList<>();
         for(String str: list){
@@ -33,13 +34,12 @@ public class LightningSpell extends Spell{
             spell.setReq_level(Integer.parseInt(words[3]));
             spell.setDamage(Integer.parseInt(words[4]));
             spell.setMana_cost(Integer.parseInt(words[5]));
-//            spell.setEquip("No");
             lightningSpells.add(spell);
         }
     }
 
-    //    @Override
     public List<String> getList() {
+        // Returns a list of lightning spells
         allLines = Parser.parser("LightningSpells.txt");
         List<String> list = new ArrayList<>();
         for (int i=1;i<allLines.size();i++) {

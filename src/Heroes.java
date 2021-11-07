@@ -3,6 +3,7 @@ import java.util.List;
 import java.util.Objects;
 
 public abstract class Heroes extends LegendsPlayer{
+    // Class to hold attributes of a hero
     private String name;
     private int mana;
     private int strength;
@@ -15,12 +16,12 @@ public abstract class Heroes extends LegendsPlayer{
     private int defense;
     private Weaponry curWeapon;
     private Armory curArmory;
-    private List<Weaponry> weapons;
-    private List<Armory> armories;
-    private List<Potions> potions;
-    private List<Spell> spells;
-    private boolean isEquipped;
-    private int exp;
+    private List<Weaponry> weapons; // Holds weapons bought by the hero
+    private List<Armory> armories; // Holds armories bought by the hero
+    private List<Potions> potions; // Holds potions bought by the hero
+    private List<Spell> spells; // Holds spells bought by the hero
+    private boolean isEquipped; // to check if the hero is equipped
+    private int exp; // to check if the hero levels up
 
     public int getExp() {
         return exp;
@@ -73,6 +74,7 @@ public abstract class Heroes extends LegendsPlayer{
 
 
     public void levelUp() {
+        // Levels up the hero and updates the skills
         System.out.println(this.getName() + " Leveled up!");
         this.setLevel(this.getLevel() + 1);
         this.setMana((int) (this.getMana() * 1.1));
@@ -92,6 +94,7 @@ public abstract class Heroes extends LegendsPlayer{
     }
 
     public void usePotion(String[] words, int att_inc){
+        // Using the potion
         for(String word: words){
             if(word.toLowerCase().equals("mana"))
                 this.setMana(this.getMana() + att_inc);
@@ -219,6 +222,7 @@ public abstract class Heroes extends LegendsPlayer{
     }
 
     public void showInventory(){
+        // Shows the hero's inventory
         this.showArmories();
         System.out.println();
         this.showWeapons();
@@ -229,21 +233,25 @@ public abstract class Heroes extends LegendsPlayer{
     }
 
     public void showArmories(){
+        // Shows the hero's armories
         System.out.println("\u001B[33m List of armories: \u001b[0m");
         Display.displayArmory(armories);
     }
 
     public void showWeapons(){
+        // Shows the hero's weapons
         System.out.println("\u001B[33m List of weapons: \u001b[0m");
         Display.displayWeaponry(weapons);
     }
 
     public void showPotions(){
+        // Shows the hero's potions
         System.out.println("\u001B[33m List of potions: \u001b[0m");
         Display.displayPotions(potions);
     }
 
     public void showSpells(){
+        // Shows the hero's spells
         System.out.println("\u001B[33m List of spells \u001b[0m");
         Display.displaySpells(spells);
     }

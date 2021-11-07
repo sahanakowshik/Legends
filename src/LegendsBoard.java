@@ -1,9 +1,10 @@
 import java.util.Random;
 
 public class LegendsBoard extends Board{
+    // Class to create an instance of board/map
     Random random = new Random();
-    private int i;
-    private int j;
+    private int i; // Holds current row position
+    private int j; // Holds current column position
 
     public int getI() {
         return i;
@@ -20,8 +21,10 @@ public class LegendsBoard extends Board{
     public void setJ(int j) {
         this.j = j;
     }
+
     @Override
     public void createBoard() {
+        // Creates a map
         for(int i=0;i<GameConstants.boardSize;i++){
             for(int j=0;j<GameConstants.boardSize;j++){
                 if(GameFunctions.getRandomBoolean((float) 0.3)){
@@ -39,6 +42,7 @@ public class LegendsBoard extends Board{
     }
 
     public void addPlayer(LegendsPlayer player){
+        // Adds player to the map
         do{
             int min = 0;
             int max = GameConstants.boardSize - 1;
@@ -94,6 +98,7 @@ public class LegendsBoard extends Board{
     }
 
     public boolean canMove(int i, int j){
+        // Checks if the player can move to the given position
         if(i < 0 || j < 0){
             System.out.println("Out of bounds");
             return false;
@@ -109,6 +114,7 @@ public class LegendsBoard extends Board{
     }
 
     public void move(int i, int j, LegendsPlayer player){
+        // Moves the player position
         if(this.grid[i][j] instanceof isAccessible){
             this.grid[i][j].setPlayer(player);
             this.grid[i][j].setIsSet(true);

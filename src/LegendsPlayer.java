@@ -1,6 +1,7 @@
 import java.util.*;
 
 public class LegendsPlayer extends Player{
+    // Class to create an instance of a player
     private int nHero;
     private String symbol;
     private List<Heroes> heroes;
@@ -13,13 +14,12 @@ public class LegendsPlayer extends Player{
         this.heroes = new ArrayList<>();
     }
 
-
     public String getSymbol() {
         return symbol;
     }
 
     public void addHeroes(){
-        Scanner sc = new Scanner(System.in);
+        // Adds heroes to a player
         for(int i=0;i<this.getnHero();i++){
             int choice = GameFunctions.safeScanIntWithLimit(new Scanner(System.in), "Please enter the hero class:\n1. Warrior\n2. Sorceror\n3. Paladin\n", 1, 3);
             if(choice == 1) {

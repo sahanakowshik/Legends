@@ -2,13 +2,13 @@ import java.util.List;
 import java.util.Objects;
 
 public abstract class Spell extends MarketItems implements isCastable, isBuyableSellable{
+    // Class to create a spell
     private int id;
     private String Name;
     private int cost;
     private int req_level;
     private int damage;
     private int mana_cost;
-//    private String Equip;
     public static List<String> allLines;
 
     @Override
@@ -23,8 +23,6 @@ public abstract class Spell extends MarketItems implements isCastable, isBuyable
     public int hashCode() {
         return Objects.hash(id, Name, cost, req_level, damage, mana_cost);
     }
-
-    //    public static List<String> getList();
 
     public int getId() {
         return id;
@@ -76,26 +74,4 @@ public abstract class Spell extends MarketItems implements isCastable, isBuyable
 
     public abstract String getType();
 
-//    public void cast(LegendsPlayer player, Monsters monster, int i, Market market){
-//        int dmg = (int) (player.getHeroes().get(i).getSpells().get(id - 1).getDamage() * (1 + (player.getHeroes().get(i).getDexterity() / 10000)));
-//        monster.setHp(monster.getHp() - dmg);
-//        player.getHeroes().get(i).setMana(player.getHeroes().get(i).getMana() - player.getHeroes().get(i).getSpells().get(id-1).getMana_cost());
-//        System.out.println(player.getHeroes().get(i).getName() + " has dealt " + dmg + " damage");
-//        if(market.getFireSpell().fireSpells.contains(player.getHeroes().get(i).getSpells().get(id-1))){
-//            monster.setDefense(monster.getDefense() - dmg);
-//        }
-//        else if(market.getIceSpell().iceSpells.contains(player.getHeroes().get(i).getSpells().get(id-1))){
-//            monster.setDamage(monster.getDamage() - dmg);
-//        }
-//        else
-//            monster.setDodge_chance(monster.getDodge_chance() - (int)(dmg * 0.05));
-//    }
-
-//    public String getEquip() {
-//        return Equip;
-//    }
-//
-//    public void setEquip(String equip) {
-//        Equip = equip;
-//    }
 }

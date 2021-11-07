@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class Weaponry extends MarketItems implements isBuyableSellable, isUsable{
+    // Class to create a weapon
     public static List<String> allLines;
     private int id;
     private String Name;
@@ -100,6 +101,7 @@ public class Weaponry extends MarketItems implements isBuyableSellable, isUsable
 
     @Override
     public void createList(){
+        // Creates a list of weapons
         List<String> list = this.getList();
         weapons = new ArrayList<>();
         for(String str: list){
@@ -117,6 +119,7 @@ public class Weaponry extends MarketItems implements isBuyableSellable, isUsable
     }
 
     public List<String> getList() {
+        // Returns a list of weapons
         allLines = Parser.parser("Weaponry.txt");
         List<String> list = new ArrayList<>();
         for (int i=1;i<allLines.size();i++) {
