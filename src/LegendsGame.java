@@ -259,11 +259,11 @@ public class LegendsGame extends RpgGame{
 //                                    else
 //                                        curMonster.setDodge_chance((int)(curMonster.getDodge_chance() * (1 - 0.1)));
                                     if (Objects.equals(curHero.getSpells().get(id - 1).getType(), "Fire Spell"))
-                                        market.getFireSpell().use(curMonster, player, i, id, market);
+                                        market.getFireSpell().use(curMonster, curHero, i, id, market);
                                     else if (Objects.equals(curHero.getSpells().get(id - 1).getType(), "Ice Spell"))
-                                        market.getIceSpell().use(curMonster, player, i, id, market);
+                                        market.getIceSpell().use(curMonster, curHero, i, id, market);
                                     else
-                                        market.getLightningSpell().use(curMonster, player, i, id, market);
+                                        market.getLightningSpell().use(curMonster, curHero, i, id, market);
 //                                    Display.displayMonsters(this.getCurMonsters());
                                     if (curMonster.getHp() <= 0) {
                                         Display.displayMonsters(this.getCurMonsters());
