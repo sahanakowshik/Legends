@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class Armory extends MarketItems implements isUsable, isBuyableSellable{
-    // Class to create a armory
+    // Class to create an armory
     public static List<String> allLines;
     private int id;
     private String Name;

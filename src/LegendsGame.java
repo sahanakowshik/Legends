@@ -75,16 +75,16 @@ public class LegendsGame extends RpgGame{
         }
     }
 
-    public void fight(int monIndex){
+    public int fight(int monIndex){
         // Logic to fight the monster
         for (int i = 0; i < player.getnHero(); i++) {
             Heroes curHero = player.getHeroes().get(i);
             Monsters curMonster = this.getCurMonsters().get(monIndex);
             System.out.println("\u001B[32m " + curHero.getName() + " vs " + curMonster.getName() + " \u001b[0m");
-            int fchoice = GameFunctions.safeScanIntWithLimit(new Scanner(System.in), "What do you want to do?\n0. Quit\n1. Attack\n2. Cast a spell\n3. Use Potion\n4. Equip/Unequip an item\n", 1, 4);
+            int fchoice = GameFunctions.safeScanIntWithLimit(new Scanner(System.in), "What do you want to do?\n0. Quit\n1. Attack\n2. Cast a spell\n3. Use Potion\n4. Equip an item\n5. Check Inventory\n", 0, 5);
             if (fchoice == 0) {
                 System.out.println("Thanks for playing");
-                return;
+                return 1;
             } else if (fchoice == 1) {
                 // Attack the monster
                 if (GameFunctions.getRandomBoolean((float) (curMonster.getDodge_chance() * 0.01))) { // Checking for monster dodging the attack
@@ -128,7 +128,7 @@ public class LegendsGame extends RpgGame{
                     int id = GameFunctions.safeScanIntWithLimit(new Scanner(System.in), "Please enter the id of the spell you want to cast\n 0. Quit\n", 0, curHero.getSpells().size());
                     if (id == 0) {
                         System.out.println("Thanks for playing");
-                        return;
+                        return 1;
                     } else if (curHero.getSpells().get(id - 1).getMana_cost() > curHero.getMana()) { //checking if player has the required mana to cast the spell
                         System.out.println("\u001B[31m You don't have the required mana to cast this spell \u001b[0m");
                         i--;
@@ -174,13 +174,13 @@ public class LegendsGame extends RpgGame{
                     int id = GameFunctions.safeScanIntWithLimit(new Scanner(System.in), "Please enter the id of the potion you want to use\n 0. Quit\n", 0, curHero.getPotions().size());
                     if (id == 0) {
                         System.out.println("Thanks for playing");
-                        return;
+                        return 1;
                     } else {
                         market.getPotion().use(player, i, id); // Calls the default use method from the isDrinkable interface
                         monIndex = (monIndex+1) % this.getCurMonsters().size();
                     }
                 }
-            } else {
+            } else if(fchoice == 4){
                 if (GameFunctions.safeScanIntWithLimit(new Scanner(System.in), "Would you like to equip/unequip a weapon?\n1. Yes\n2. No\n", 1, 2) == 1) {
                     if (curHero.getWeapons().size() == 0) {
                         System.out.println("\u001B[31m You don't own any weapon \u001b[0m");
@@ -226,6 +226,12 @@ public class LegendsGame extends RpgGame{
                     i--;
                 }
             }
+            else{
+                curHero.showInventory();
+                System.out.println();
+                i--;
+                continue;
+            }
 
             int monDmg = (int) (curMonster.getDamage() * 0.05); // Calculating damage dealt by monster
             if (GameFunctions.getRandomBoolean((float) (curHero.getAgility() * 0.001))) { // Checking if hero dodged the attack
@@ -255,6 +261,7 @@ public class LegendsGame extends RpgGame{
             System.out.println("Monsters");
             Display.displayMonsters(this.getCurMonsters());
         }
+        return 0;
     }
 
     @Override
@@ -384,7 +391,9 @@ public class LegendsGame extends RpgGame{
                 hcount = 0;
                 while(this.getCurMonsters().size() > 0 && hcount < player.getHeroes().size()) {
                     int monIndex = 0;
-                    this.fight(monIndex); // Fighting the monster
+                    int j = this.fight(monIndex); // Fighting the monster
+                    if(j == 1)
+                        return;
                 }
                 if(heroFlag == 0 && monsterFlag == 1){ // Monsters win the fight
                     System.out.println("\u001B[41m Monsters won the fight! \u001b[0m");
