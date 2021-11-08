@@ -89,7 +89,7 @@ public class LegendsGame extends RpgGame{
                 // Attack the monster
                 if (GameFunctions.getRandomBoolean((float) (curMonster.getDodge_chance() * 0.01))) { // Checking for monster dodging the attack
                     System.out.println("\u001B[31m The monster has dodged the attack! \u001b[0m");
-                    Music.playSound("../src/music/mixkit-troll-warrior-laugh-409.wav");
+                    Parser.parseMusic("mixkit-troll-warrior-laugh-409.wav");
                 } else {
                     int dmg;
                     // Calculating the damage dealt by the hero
@@ -100,12 +100,12 @@ public class LegendsGame extends RpgGame{
                     }
                     curMonster.setHp(Math.max((curMonster.getHp() - dmg), 0)); // Reduces the health of the monster
                     System.out.println("\u001B[33m" + curHero.getName() + " has dealt " + dmg + " damage! \u001b[0m");
-                    Music.playSound("../src/music/mixkit-quick-ninja-strike-2146.wav");
+                    Parser.parseMusic("mixkit-quick-ninja-strike-2146.wav");
                     if (curMonster.getHp() <= 0) {
                         // Checking if player won the round
                         Display.displayMonsters(this.getCurMonsters());
                         System.out.println("\u001B[32m" + curHero.getName() + " Won! \u001b[0m");
-                        Music.playSound("../src/music/mixkit-achievement-bell-600.wav");
+                        Parser.parseMusic("mixkit-achievement-bell-600.wav");
                         level = Math.max(level, curMonster.getLevel());
                         heroFlag = 1;
                         curMonster.setHp(curMonster.getLevel() * 100);
@@ -136,21 +136,21 @@ public class LegendsGame extends RpgGame{
                     } else {
                         if (Objects.equals(curHero.getSpells().get(id - 1).getType(), "Fire Spell")) {
                             market.getFireSpell().use(curMonster, curHero, i, id, market); // Calls the default use method from the isCastable interface
-                            Music.playSound("../src/music/mixkit-fireball-spell-1347.wav");
+                            Parser.parseMusic("mixkit-fireball-spell-1347.wav");
                         }
                         else if (Objects.equals(curHero.getSpells().get(id - 1).getType(), "Ice Spell")) {
                             market.getIceSpell().use(curMonster, curHero, i, id, market); // Calls the default use method from the isCastable interface
-                            Music.playSound("../src/music/mixkit-thin-icicles-spell-882.wav");
+                            Parser.parseMusic("mixkit-thin-icicles-spell-882.wav");
                         }
                         else {
                             market.getLightningSpell().use(curMonster, curHero, i, id, market); // Calls the default use method from the isCastable interface
-                            Music.playSound("../src/music/mixkit-light-spell-873.wav");
+                            Parser.parseMusic("mixkit-light-spell-873.wav");
                         }
                         if (curMonster.getHp() <= 0) {
                             // Checking if player won the round
                             Display.displayMonsters(this.getCurMonsters());
                             System.out.println("\u001B[32m" + curHero.getName() + " Won! \u001b[0m");
-                            Music.playSound("../src/music/mixkit-achievement-bell-600.wav");
+                            Parser.parseMusic("mixkit-achievement-bell-600.wav");
                             level = Math.max(level, curMonster.getLevel());
                             heroFlag = 1;
                             curMonster.setHp(curMonster.getLevel() * 100);
@@ -236,12 +236,12 @@ public class LegendsGame extends RpgGame{
                     curHero.setHp(Math.max((curHero.getHp() - monDmg),0)); // Updating hp of hero without armory
                 else
                     curHero.setHp(Math.max(Math.min((curHero.getHp() + curHero.getCurArmory().getDamage_reduction() - monDmg), curHero.getHp()),0)); // Updating hp of hero without armory
-                System.out.println("\u001B[31m" + curMonster.getName() + " has dealt " + monDmg + "damage! \u001b[0m");
-                Music.playSound("../src/music/mixkit-quick-ninja-strike-2146.wav");
+                System.out.println("\u001B[31m" + curMonster.getName() + " has dealt " + monDmg + " damage! \u001b[0m");
+                Parser.parseMusic("mixkit-quick-ninja-strike-2146.wav");
                 if (curHero.getHp() <= 0) {
                     // Checking if monster won the round
                     System.out.println("\u001B[31m Monster won! \u001b[0m");
-                    Music.playSound("../src/music/mixkit-8-bit-lose-2031.wav");
+                    Parser.parseMusic("mixkit-8-bit-lose-2031.wav");
                     monsterFlag = 1;
                     hcount++;
                 }
@@ -261,7 +261,7 @@ public class LegendsGame extends RpgGame{
     public void startGame() throws Exception {
         // The game starts
         artGen.printTextArt("Welcome", ASCIIArtGenerator.ART_SIZE_MEDIUM);
-        Music.playSound("../src/music/mixkit-game-level-completed-2059.wav");
+        Parser.parseMusic("mixkit-game-level-completed-2059.wav");
         System.out.println("Welcome to the game of Legends: Monsters and Heroes!!");
         player = new LegendsPlayer();
         player.setName(GameFunctions.safeScanString(new Scanner(System.in), "Please enter your name:\n"));
@@ -300,7 +300,7 @@ public class LegendsGame extends RpgGame{
                                 Display.displayBoard(board);
                                 Display.displayLegend(player.getSymbol());
                                 System.out.println("\u001B[42m " + player.getName() + ", You have moved \u001b[0m");
-                                Music.playSound("../src/music/mixkit-player-jumping-in-a-video-game-2043.wav");
+                                Parser.parseMusic("mixkit-player-jumping-in-a-video-game-2043.wav");
                                 break label;
                             }
                             break;
@@ -312,7 +312,7 @@ public class LegendsGame extends RpgGame{
                                 Display.displayBoard(board);
                                 Display.displayLegend(player.getSymbol());
                                 System.out.println("\u001B[42m " + player.getName() + "You have moved \u001b[0m");
-                                Music.playSound("../src/music/mixkit-player-jumping-in-a-video-game-2043.wav");
+                                Parser.parseMusic("mixkit-player-jumping-in-a-video-game-2043.wav");
                                 break label;
                             }
                             break;
@@ -324,7 +324,7 @@ public class LegendsGame extends RpgGame{
                                 Display.displayBoard(board);
                                 Display.displayLegend(player.getSymbol());
                                 System.out.println("\u001B[42m " + player.getName() + "You have moved \u001b[0m");
-                                Music.playSound("../src/music/mixkit-player-jumping-in-a-video-game-2043.wav");
+                                Parser.parseMusic("mixkit-player-jumping-in-a-video-game-2043.wav");
                                 break label;
                             }
                             break;
@@ -336,7 +336,7 @@ public class LegendsGame extends RpgGame{
                                 Display.displayBoard(board);
                                 Display.displayLegend(player.getSymbol());
                                 System.out.println("\u001B[42m " + player.getName() + "You have moved \u001b[0m");
-                                Music.playSound("../src/music/mixkit-player-jumping-in-a-video-game-2043.wav");
+                                Parser.parseMusic("mixkit-player-jumping-in-a-video-game-2043.wav");
                                 break label;
                             }
                             break;
@@ -371,11 +371,13 @@ public class LegendsGame extends RpgGame{
             else if(!board.grid[board.getI()][board.getJ()].getSymbol().contains("I") && GameFunctions.getRandomBoolean((float)0.17)){
                 // Player encounters a monster
                 System.out.println("\u001B[41m You have encountered the monsters!! \u001b[0m");
-                Music.playSound("../src/music/mixkit-aggressive-beast-roar-13.wav");
+                Parser.parseMusic("mixkit-aggressive-beast-roar-13.wav");
                 this.getMonsters(player);
                 int level = 1;
                 System.out.println(this.getCurMonsters().size());
+                System.out.println("Heroes");
                 Display.displayHeroes(player.getHeroes());
+                System.out.println("Monsters");
                 Display.displayMonsters(this.getCurMonsters());
                 heroFlag = 0;
                 monsterFlag = 0;
@@ -386,14 +388,14 @@ public class LegendsGame extends RpgGame{
                 }
                 if(heroFlag == 0 && monsterFlag == 1){ // Monsters win the fight
                     System.out.println("\u001B[41m Monsters won the fight! \u001b[0m");
-                    Music.playSound("../src/music/mixkit-ominous-drums-227.wav");
+                    Parser.parseMusic("mixkit-ominous-drums-227.wav");
                     for(Heroes hero : player.getHeroes()){
                         hero.setHp((hero.getLevel() * 100) / 2);
                     }
                 }
                 else if(heroFlag == 1) { // Heroes win the fight
                     System.out.println("\u001B[42m Heroes won the fight! \u001b[0m");
-                    Music.playSound("../src/music/mixkit-ethereal-fairy-win-sound-2019.wav");
+                    Parser.parseMusic("mixkit-ethereal-fairy-win-sound-2019.wav");
                     for (Heroes hero : player.getHeroes()) {
                         if (hero.getHp() != 0) {
                             // Updating money and exp for heroes that are alive

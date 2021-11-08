@@ -18,4 +18,9 @@ public class Parser {
         return allLines;
     }
 
+    public static void parseMusic(String name){
+        String file = System.getProperty("user.dir") + "/music/" + name;
+        Music.playSound(file);
+    }
+
 }

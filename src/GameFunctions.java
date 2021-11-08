@@ -7,12 +7,11 @@ public class GameFunctions {
      * Get the details of the player and set the desired piece
      * Conditions:
      * Player name should be unique
-//     * @param game
 //     * @param scanner
-//     * @param playerIndex
      */
 
     static boolean getRandomBoolean(float probability) {
+        // Return boolean based on probability
         double randomValue = Math.random();  //0.0 to 99.9
         return randomValue <= probability;
     }
