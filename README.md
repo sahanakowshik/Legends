@@ -57,7 +57,6 @@
 2. A player is assumed to be able to hold one weapon and one armor at a time.
 3. A player can hold any number of potions or spells of the same level.
 4. After the fight, all surviving heroes get coins equal to monter with the highest level * 100.
-5. 
 
 ***Design Patterns***
 1. Factory Pattern: Factory pattern is implemented in the LegendsBoard class to create cells of type market, safe/common and inaccessible using CellFactory class.
